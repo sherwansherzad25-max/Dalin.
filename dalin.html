@@ -1,0 +1,255 @@
+<!DOCTYPE html>
+<html lang="ku" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    
+    <title>dalin</title>
+    <meta name="apple-mobile-web-app-title" content="dalin">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+
+    <link rel="apple-touch-icon" href="https://cdn-icons-png.flaticon.com/512/3737/3737372.png">
+    <link rel="icon" type="image/png" href="https://cdn-icons-png.flaticon.com/512/3737/3737372.png">
+
+    <style>
+        * { box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
+        :root { --primary: #2c3e50; --accent: #007bff; --danger: #e74c3c; --success: #27ae60; }
+        body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; background: linear-gradient(135deg, #a1c4fd 0%, #c2e9fb 100%); margin: 0; padding: 10px; color: var(--primary); min-height: 100vh; }
+        .container { max-width: 800px; margin: auto; background: rgba(255, 255, 255, 0.98); padding: 15px; border-radius: 12px; box-shadow: 0 8px 20px rgba(0,0,0,0.15); border-top: 6px solid var(--accent); }
+        h1 { text-align: center; color: var(--accent); margin-bottom: 5px; font-size: 24px; }
+        .owner-name { text-align: center; color: #34495e; margin-top: -5px; margin-bottom: 20px; font-size: 16px; font-weight: bold; }
+        .currency-selector { background: #eaf2f8; padding: 10px; border-radius: 8px; text-align: center; font-size: 15px; font-weight: bold; margin-bottom: 15px; border: 1px solid #d6eaf8; }
+        .currency-selector input[type="radio"] { transform: scale(1.2); margin: 0 5px; }
+        .table-responsive { width: 100%; overflow-x: auto; margin-bottom: 15px; }
+        table { width: 100%; min-width: 320px; border-collapse: collapse; table-layout: fixed; }
+        th { background: #f8f9fa; padding: 8px 2px; border-bottom: 2px solid #ddd; font-size: 13px; text-align: center; }
+        td { padding: 5px 2px; border-bottom: 1px solid #eee; text-align: center; }
+        .row-num-cell { font-weight: bold; color: var(--accent); font-size: 14px; width: 10%; }
+        input[type="number"], input[type="text"] { width: 100%; padding: 10px 4px; border: 1px solid #ccc; border-radius: 6px; font-size: 14px; text-align: center; outline: none; background: #fff; -webkit-appearance: none; }
+        input:focus { border-color: var(--accent); background: #f0f8ff; }
+        input.row-total { background-color: #e8f0fe; font-weight: bold; color: var(--primary); pointer-events: none; border: none; }
+        .action-btns { display: flex; flex-direction: column; gap: 10px; margin-bottom: 15px; }
+        .top-btns { display: flex; gap: 10px; }
+        .btn { color: white; border: none; padding: 12px; border-radius: 8px; cursor: pointer; font-weight: bold; font-size: 15px; text-align: center; }
+        .btn-add { background: var(--accent); flex: 1; }
+        .btn-clear { background: var(--danger); flex: 1; }
+        .btn-save { background: var(--success); width: 100%; }
+        .total-section { background: var(--primary); color: white; padding: 15px; border-radius: 8px; text-align: center; font-size: 20px; font-weight: bold; margin-bottom: 20px; }
+        .total-converted { font-size: 15px; opacity: 0.9; margin-top: 5px; font-weight: normal; }
+        .bottom-panel { background: #fdfefe; border: 1px solid #eaeded; border-radius: 8px; padding: 10px; display: flex; flex-direction: column; gap: 10px; }
+        .rate-box { text-align: center; font-size: 15px; font-weight: bold; padding-bottom: 10px; border-bottom: 1px dashed #ddd; }
+        .rate-box input { width: 100px; display: inline-block; padding: 6px; }
+        .converter-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; text-align: center; }
+        .convert-box { background: #f4f6f7; padding: 10px; border-radius: 6px; font-size: 13px; }
+        .convert-box input { width: 90%; margin: 8px auto; display: block; padding: 6px; }
+        .convert-box span { display: block; margin-top: 5px; font-size: 14px; font-weight: bold; color: var(--danger); }
+        .history-section { margin-top: 20px; background: #fff; padding: 15px; border-radius: 8px; border: 1px solid #ddd; }
+        .history-section h3 { text-align: center; margin: 0 0 15px 0; color: #2c3e50; font-size: 16px; }
+        .history-list { list-style: none; padding: 0; margin: 0; }
+        .history-list li { background: #fdfdfd; border: 1px solid #e1e8ed; padding: 10px; margin-bottom: 10px; border-radius: 6px; display: flex; flex-direction: column; gap: 5px; }
+        .history-header { display: flex; justify-content: space-between; border-bottom: 1px solid #eee; padding-bottom: 5px; }
+        .history-date { color: #7f8c8d; font-size: 12px; font-weight: bold; }
+        .history-amount { font-weight: bold; color: var(--success); font-size: 15px; }
+        .history-items { font-size: 13px; color: #555; padding: 5px 10px 0 0; margin: 0; list-style-type: disc; }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <h1>تایبەت بە مارکێتی دەلین</h1>
+    <div class="owner-name">خاوەنی: عمر علی</div>
+
+    <div class="currency-selector">
+        پارەی وەسڵەکە: 
+        <label><input type="radio" name="currencyMode" value="IQD" checked onchange="calculateAll()"> دینار</label>
+        <label><input type="radio" name="currencyMode" value="USD" onchange="calculateAll()"> دۆلار</label>
+    </div>
+
+    <div class="table-responsive">
+        <table id="invoiceTable">
+            <thead>
+                <tr>
+                    <th style="width: 12%;">#</th>
+                    <th style="width: 33%;">بابەت</th>
+                    <th style="width: 15%;">بڕ</th>
+                    <th style="width: 20%;">نرخ</th>
+                    <th style="width: 20%;">کۆ</th>
+                </tr>
+            </thead>
+            <tbody id="itemsBody">
+                <tr>
+                    <td class="row-num-cell">١</td>
+                    <td><input type="text" placeholder="ناو"></td>
+                    <td><input type="number" class="qty" min="0" placeholder="١" oninput="calculateAll()"></td>
+                    <td><input type="number" class="price" min="0" placeholder="نرخ" oninput="calculateAll()"></td>
+                    <td><input type="text" class="row-total" placeholder="٠" readonly></td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+
+    <div class="action-btns">
+        <div class="top-btns">
+            <button class="btn btn-add" onclick="addRow()">+ زیادکردن</button>
+            <button class="btn btn-clear" onclick="clearAll()">پاککردنەوە</button>
+        </div>
+        <button class="btn btn-save" onclick="saveReceipt()">💾 پاشەکەوتکردنی وەسڵ</button>
+    </div>
+
+    <div class="total-section">
+        کۆی گشتی: <span id="grandTotal">0</span> <span id="mainCurrencySymbol">دینار</span>
+        <div class="total-converted">
+            بەرامبەرە بە: <span id="convertedTotal">0</span> <span id="convertedCurrencySymbol">دۆلار</span>
+        </div>
+    </div>
+
+    <div class="bottom-panel">
+        <div class="rate-box">
+            ١٠٠ دۆلار: 
+            <input type="number" id="dollarRate" min="0" value="150000" oninput="calculateAll(); convertUsdToIqd(); convertIqdToUsd();"> دینار
+        </div>
+
+        <div class="converter-grid">
+            <div class="convert-box">
+                دۆلار ⬅️ دینار<br>
+                <input type="number" id="calcUSD" min="0" placeholder="$" oninput="convertUsdToIqd()">
+                <span id="resIQD">0 دینار</span>
+            </div>
+            <div class="convert-box">
+                دینار ⬅️ دۆلار<br>
+                <input type="number" id="calcIQD" min="0" placeholder="دینار" oninput="convertIqdToUsd()">
+                <span id="resUSD">0 دۆلار</span>
+            </div>
+        </div>
+    </div>
+
+    <div class="history-section">
+        <h3>وەسڵە پاشەکەوتکراوەکان (١٠ی کۆتایی)</h3>
+        <ul class="history-list" id="historyList"></ul>
+    </div>
+</div>
+
+<script>
+    window.onload = function() { loadHistory(); };
+
+    function updateRowNumbers() {
+        const rows = document.querySelectorAll('#itemsBody tr');
+        rows.forEach((row, index) => { row.querySelector('.row-num-cell').innerText = index + 1; });
+    }
+
+    function addRow() {
+        const tbody = document.getElementById('itemsBody');
+        const tr = document.createElement('tr');
+        tr.innerHTML = `
+            <td class="row-num-cell"></td>
+            <td><input type="text" placeholder="ناو"></td>
+            <td><input type="number" class="qty" min="0" placeholder="١" oninput="calculateAll()"></td>
+            <td><input type="number" class="price" min="0" placeholder="نرخ" oninput="calculateAll()"></td>
+            <td><input type="text" class="row-total" placeholder="٠" readonly></td>
+        `;
+        tbody.appendChild(tr);
+        updateRowNumbers();
+    }
+
+    function calculateAll() {
+        const rows = document.querySelectorAll('#itemsBody tr');
+        let grandTotal = 0;
+        let rateInput = document.getElementById('dollarRate').value || 150000;
+        const oneDollarRate = rateInput / 100;
+        const currencyMode = document.querySelector('input[name="currencyMode"]:checked').value;
+
+        document.getElementById('mainCurrencySymbol').innerText = currencyMode === 'IQD' ? 'دینار' : 'دۆلار';
+        document.getElementById('convertedCurrencySymbol').innerText = currencyMode === 'IQD' ? 'دۆلار' : 'دینار';
+
+        rows.forEach(row => {
+            const qty = parseFloat(row.querySelector('.qty').value) || 1;
+            const price = parseFloat(row.querySelector('.price').value) || 0;
+            const total = qty * price;
+            row.querySelector('.row-total').value = total > 0 ? total.toLocaleString() : "";
+            grandTotal += total;
+        });
+
+        document.getElementById('grandTotal').innerText = grandTotal.toLocaleString();
+        if(oneDollarRate > 0) {
+            let converted = currencyMode === 'IQD' ? grandTotal / oneDollarRate : grandTotal * oneDollarRate;
+            document.getElementById('convertedTotal').innerText = currencyMode === 'IQD' ? converted.toFixed(2) : Math.round(converted).toLocaleString();
+        }
+    }
+
+    function convertUsdToIqd() {
+        const usd = parseFloat(document.getElementById('calcUSD').value) || 0;
+        const rate = (document.getElementById('dollarRate').value || 150000) / 100;
+        document.getElementById('resIQD').innerText = (usd * rate).toLocaleString() + " دینار";
+    }
+
+    function convertIqdToUsd() {
+        const iqd = parseFloat(document.getElementById('calcIQD').value) || 0;
+        const rate = (document.getElementById('dollarRate').value || 150000) / 100;
+        document.getElementById('resUSD').innerText = (rate > 0 ? (iqd / rate).toFixed(2) : "0") + " دۆلار";
+    }
+
+    function clearAll() {
+        if(confirm("ئایا دڵنیای لە پاککردنەوە؟")) {
+            document.getElementById('itemsBody').innerHTML = ''; addRow();
+            document.getElementById('grandTotal').innerText = '0';
+            document.getElementById('convertedTotal').innerText = '0';
+            document.querySelectorAll('.converter-grid input').forEach(i => i.value = '');
+            document.getElementById('resIQD').innerText = '0 دینار';
+            document.getElementById('resUSD').innerText = '0 دۆلار';
+        }
+    }
+
+    function saveReceipt() {
+        const grandTotal = document.getElementById('grandTotal').innerText;
+        if(grandTotal === "0" || grandTotal === "") return alert("وەسڵەکە بەتاڵە!");
+
+        let items = [];
+        document.querySelectorAll('#itemsBody tr').forEach(row => {
+            const price = row.querySelector('.price').value;
+            if(parseFloat(price) > 0) {
+                items.push({
+                    name: row.querySelector('input[type="text"]').value || "کاڵا",
+                    qty: row.querySelector('.qty').value || 1,
+                    price: parseFloat(price).toLocaleString(),
+                    total: row.querySelector('.row-total').value
+                });
+            }
+        });
+
+        const receipt = {
+            date: new Date().toLocaleDateString('en-GB') + " | " + new Date().toLocaleTimeString('en-US', {hour:'2-digit', minute:'2-digit'}),
+            total: grandTotal + " " + document.getElementById('mainCurrencySymbol').innerText,
+            items: items
+        };
+
+        let history = JSON.parse(localStorage.getItem('dalinFull')) || [];
+        history.unshift(receipt);
+        if(history.length > 10) history.pop();
+        localStorage.setItem('dalinFull', JSON.stringify(history));
+        
+        alert("پاشەکەوت کرا!");
+        loadHistory();
+        clearAll();
+    }
+
+    function loadHistory() {
+        const list = document.getElementById('historyList');
+        list.innerHTML = '';
+        const history = JSON.parse(localStorage.getItem('dalinFull')) || [];
+        if(history.length === 0) return list.innerHTML = '<li style="text-align:center; color:#999;">هیچ وەسڵێک نییە</li>';
+
+        history.forEach((rec, idx) => {
+            let itemStr = '<ul class="history-items">';
+            rec.items.forEach(it => itemStr += `<li>${it.name} (${it.qty}x${it.price}) = <b>${it.total}</b></li>`);
+            itemStr += '</ul>';
+            
+            const li = document.createElement('li');
+            li.innerHTML = `<div class="history-header"><span class="history-date">#${idx+1} | ${rec.date}</span><span class="history-amount">${rec.total}</span></div>${itemStr}`;
+            list.appendChild(li);
+        });
+    }
+</script>
+
+</body>
+</html>
