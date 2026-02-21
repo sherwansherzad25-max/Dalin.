@@ -46,7 +46,6 @@
         .total-section { background: var(--primary); color: white; padding: 15px; border-radius: 8px; text-align: center; font-size: 20px; font-weight: bold; margin-bottom: 20px; }
         .total-converted { font-size: 15px; opacity: 0.9; margin-top: 5px; font-weight: normal; }
         
-        /* گەڕاندنەوەی بەشی دۆلار و دینار لە خوارەوە */
         .bottom-panel { background: #fdfefe; border: 1px solid #eaeded; border-radius: 8px; padding: 15px; display: flex; flex-direction: column; gap: 15px; margin-bottom: 20px;}
         .rate-box { text-align: center; font-size: 15px; font-weight: bold; padding-bottom: 10px; border-bottom: 1px dashed #ddd; }
         .rate-box input { width: 100px; display: inline-block; padding: 6px; }
@@ -58,26 +57,29 @@
         .history-section { margin-top: 10px; background: #fff; padding: 15px; border-radius: 8px; border: 1px solid #ddd; }
         .history-section h3 { text-align: center; margin: 0 0 15px 0; color: #2c3e50; font-size: 16px; }
         .history-list { list-style: none; padding: 0; margin: 0; display: flex; flex-direction: column; gap: 10px; }
-        .history-card { background: #fdfdfd; border: 1px solid #e1e8ed; padding: 12px; border-radius: 8px; display: flex; justify-content: space-between; align-items: center; cursor: pointer; transition: 0.2s; box-shadow: 0 2px 5px rgba(0,0,0,0.05); }
-        .history-card:active { background: #eaf2f8; transform: scale(0.98); }
+        .history-card { background: #fdfdfd; border: 1px solid #e1e8ed; padding: 8px; border-radius: 8px; display: flex; justify-content: space-between; align-items: center; transition: 0.2s; box-shadow: 0 2px 5px rgba(0,0,0,0.05); }
+        
+        .history-info { flex-grow: 1; display: flex; justify-content: space-between; align-items: center; padding-left: 10px; cursor: pointer; }
         .history-date { color: #7f8c8d; font-size: 13px; font-weight: bold; }
-        .history-amount { font-weight: bold; color: var(--success); font-size: 16px; }
+        .history-amount { font-weight: bold; color: var(--success); font-size: 15px; }
+        
+        .btn-delete-receipt { background: var(--danger); color: white; border: none; padding: 8px 12px; border-radius: 6px; cursor: pointer; font-size: 14px; display: flex; align-items: center; justify-content: center;}
 
         .designer-name { text-align: center; margin-top: 25px; color: #7f8c8d; font-size: 14px; font-weight: bold; border-top: 1px dashed #ccc; padding-top: 15px; }
 
-        /* پەنجەرەی گەورەبوونەوەی وەسڵ و چارەسەری بۆشاییەکان */
-        .modal { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.7); z-index: 1000; align-items: center; justify-content: center; padding: 15px; }
-        .modal-content { background: #fff; width: 100%; max-width: 400px; border-radius: 12px; padding: 20px; max-height: 90vh; overflow-y: auto; position: relative; }
+        /* پەنجەرەی گەورەبوونەوەی وەسڵ چارەسەرکراو بۆ مۆبایل */
+        .modal { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.8); z-index: 1000; align-items: center; justify-content: center; padding: 10px; }
+        .modal-content { background: #fff; width: 100%; max-width: 450px; border-radius: 12px; padding: 15px; max-height: 95vh; overflow-y: auto; position: relative; }
         
-        .receipt-print { background: #fff; padding: 25px; border: 2px solid #333; border-radius: 8px; margin-bottom: 20px; }
-        .receipt-print h2 { text-align: center; margin: 0 0 5px 0; color: #333; }
-        .receipt-print p { text-align: center; margin: 0 0 20px 0; color: #555; font-size: 14px; }
-        .receipt-print table { width: 100%; border-collapse: collapse; margin-bottom: 20px; }
-        .receipt-print th, .receipt-print td { border: 1px solid #ccc; padding: 10px; text-align: center; font-size: 14px; color: #333; }
-        .receipt-print th { background: #eee; }
+        /* دیزاینی وەسڵی چاپکردن زۆر گونجاو بۆ شاشەی بچووک */
+        .receipt-print { background: #fff; padding: 15px; border: 2px solid #333; border-radius: 8px; margin-bottom: 20px; width: 100%; box-sizing: border-box; }
+        .receipt-print h2 { text-align: center; margin: 0 0 5px 0; color: #333; font-size: 20px; }
+        .receipt-print p { text-align: center; margin: 0 0 15px 0; color: #555; font-size: 13px; }
+        .receipt-print table { width: 100%; border-collapse: collapse; margin-bottom: 15px; table-layout: fixed; }
+        .receipt-print th, .receipt-print td { border: 1px solid #ccc; padding: 6px 2px; text-align: center; font-size: 12px; color: #333; word-wrap: break-word; }
+        .receipt-print th { background: #eee; font-size: 13px; }
         
-        /* جوانکردن و دوورخستنەوەی کۆی گشتی لە وەسڵی پاشەکەوتکراو */
-        .receipt-total { text-align: left; font-size: 18px; font-weight: bold; color: var(--success); padding-top: 15px; margin-top: 10px; border-top: 2px dashed #999; }
+        .receipt-total { text-align: left; font-size: 16px; font-weight: bold; color: var(--success); padding-top: 10px; margin-top: 5px; border-top: 2px dashed #999; }
         
         .modal-btns { display: flex; gap: 10px; }
         .btn-download { background: var(--accent); flex: 2; }
@@ -156,8 +158,8 @@
     </div>
 
     <div class="history-section">
-        <h3>وەسڵە پاشەکەوتکراوەکان (١٠ی کۆتایی)</h3>
-        <p style="text-align:center; font-size:12px; color:#999; margin-top:-10px;">کلیک لە وەسڵێک بکە بۆ بینین و دابەزاندن</p>
+        <h3>وەسڵە پاشەکەوتکراوەکان</h3>
+        <p style="text-align:center; font-size:12px; color:#999; margin-top:-10px;">بۆ بینین کلیک لە وەسڵەکە بکە، یان بیسڕەوە</p>
         <ul class="history-list" id="historyList"></ul>
     </div>
 
@@ -323,14 +325,27 @@
         history.forEach((rec, idx) => {
             const li = document.createElement('li');
             li.className = 'history-card';
-            li.onclick = function() { openReceiptModal(idx); }; 
             
             li.innerHTML = `
-                <span class="history-date">#${idx+1} &nbsp; ${rec.date}</span>
-                <span class="history-amount">${rec.total}</span>
+                <div class="history-info" onclick="openReceiptModal(${idx})">
+                    <span class="history-date">#${idx+1} &nbsp; ${rec.date}</span>
+                    <span class="history-amount">${rec.total}</span>
+                </div>
+                <button class="btn-delete-receipt" onclick="deleteReceipt(event, ${idx})">🗑️</button>
             `;
             list.appendChild(li);
         });
+    }
+
+    // فەنکشنی سڕینەوەی وەسڵێکی دیاریکراو
+    function deleteReceipt(event, index) {
+        event.stopPropagation(); // بۆ ئەوەی ڕێگری بکات لە کردنەوەی پەنجەرەی وەسڵەکە کاتێک کلیک لە سڕینەوە دەکەیت
+        if(confirm("ئایا دڵنیای لە سڕینەوەی ئەم وەسڵە؟")) {
+            let history = JSON.parse(localStorage.getItem('dalinFull')) || [];
+            history.splice(index, 1);
+            localStorage.setItem('dalinFull', JSON.stringify(history));
+            loadHistory();
+        }
     }
 
     function openReceiptModal(index) {
@@ -348,7 +363,7 @@
                 <h2>مارکێتی دەلین</h2>
                 <p>خاوەنی: عمر علی<br><span style="direction: ltr; display: inline-block; margin-top:5px;">${rec.date}</span></p>
                 <table>
-                    <tr><th>بابەت</th><th>بڕ</th><th>نرخ</th><th>کۆ</th></tr>
+                    <tr><th style="width:35%;">بابەت</th><th style="width:15%;">بڕ</th><th style="width:25%;">نرخ</th><th style="width:25%;">کۆ</th></tr>
                     ${tableRows}
                 </table>
                 <div class="receipt-total">کۆی گشتی: ${rec.total}</div>
@@ -365,7 +380,11 @@
 
     function downloadReceiptImage() {
         const target = document.getElementById('captureArea');
-        html2canvas(target, { scale: 2 }).then(canvas => {
+        html2canvas(target, { 
+            scale: 2, 
+            useCORS: true,
+            backgroundColor: "#ffffff"
+        }).then(canvas => {
             const link = document.createElement('a');
             link.download = 'wasl_dalin.png';
             link.href = canvas.toDataURL('image/png');
