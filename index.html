@@ -67,11 +67,9 @@
 
         .designer-name { text-align: center; margin-top: 25px; color: #7f8c8d; font-size: 14px; font-weight: bold; border-top: 1px dashed #ccc; padding-top: 15px; }
 
-        /* پەنجەرەی گەورەبوونەوەی وەسڵ چارەسەرکراو بۆ مۆبایل */
         .modal { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.8); z-index: 1000; align-items: center; justify-content: center; padding: 10px; }
         .modal-content { background: #fff; width: 100%; max-width: 450px; border-radius: 12px; padding: 15px; max-height: 95vh; overflow-y: auto; position: relative; }
         
-        /* دیزاینی وەسڵی چاپکردن زۆر گونجاو بۆ شاشەی بچووک */
         .receipt-print { background: #fff; padding: 15px; border: 2px solid #333; border-radius: 8px; margin-bottom: 20px; width: 100%; box-sizing: border-box; }
         .receipt-print h2 { text-align: center; margin: 0 0 5px 0; color: #333; font-size: 20px; }
         .receipt-print p { text-align: center; margin: 0 0 15px 0; color: #555; font-size: 13px; }
@@ -113,8 +111,8 @@
                 <tr>
                     <td class="row-num-cell">١</td>
                     <td><input type="text" placeholder="ناو"></td>
-                    <td><input type="number" class="qty" min="0" placeholder="١" oninput="calculateAll()"></td>
-                    <td><input type="number" class="price" min="0" placeholder="نرخ" oninput="calculateAll()"></td>
+                    <td><input type="number" class="qty" min="0" placeholder="١" inputmode="decimal" oninput="calculateAll()"></td>
+                    <td><input type="number" class="price" min="0" placeholder="نرخ" inputmode="decimal" oninput="calculateAll()"></td>
                     <td><input type="text" class="row-total" placeholder="٠" readonly></td>
                 </tr>
             </tbody>
@@ -140,25 +138,25 @@
     <div class="bottom-panel">
         <div class="rate-box">
             ١٠٠ دۆلار: 
-            <input type="number" id="dollarRate" min="0" value="150000" oninput="calculateAll(); convertUsdToIqd(); convertIqdToUsd();"> دینار
+            <input type="number" id="dollarRate" min="0" value="150000" inputmode="decimal" oninput="calculateAll(); convertUsdToIqd(); convertIqdToUsd();"> دینار
         </div>
 
         <div class="converter-grid">
             <div class="convert-box">
                 دۆلار ⬅️ دینار<br>
-                <input type="number" id="calcUSD" min="0" placeholder="$" oninput="convertUsdToIqd()">
+                <input type="number" id="calcUSD" min="0" placeholder="$" inputmode="decimal" oninput="convertUsdToIqd()">
                 <span id="resIQD">0 دینار</span>
             </div>
             <div class="convert-box">
                 دینار ⬅️ دۆلار<br>
-                <input type="number" id="calcIQD" min="0" placeholder="دینار" oninput="convertIqdToUsd()">
+                <input type="number" id="calcIQD" min="0" placeholder="دینار" inputmode="decimal" oninput="convertIqdToUsd()">
                 <span id="resUSD">0 دۆلار</span>
             </div>
         </div>
     </div>
 
     <div class="history-section">
-        <h3>وەسڵە پاشەکەوتکراوەکان</h3>
+        <h3>وەسڵە پاشەکەوتکراوەکان (١٠ی کۆتایی)</h3>
         <p style="text-align:center; font-size:12px; color:#999; margin-top:-10px;">بۆ بینین کلیک لە وەسڵەکە بکە، یان بیسڕەوە</p>
         <ul class="history-list" id="historyList"></ul>
     </div>
@@ -179,6 +177,21 @@
 </div>
 
 <script>
+    // کۆدی ڕێگریکردن لە پیت و هێما بۆ ئەوەی تەنها ژمارەی ئینگلیزی قبوڵ بکات
+    document.addEventListener('input', function (e) {
+        if (e.target.type === 'number') {
+            let val = e.target.value;
+            // گۆڕینی ژمارەی کوردی/عەرەبی بۆ ئینگلیزی
+            val = val.replace(/[٠-٩]/g, d => '٠١٢٣٤٥٦٧٨٩'.indexOf(d))
+                     .replace(/[۰-۹]/g, d => '۰۱۲۳۴۵۶۷۸۹'.indexOf(d));
+            // سڕینەوەی هەموو شتێک کە ژمارەی ئینگلیزی یان خاڵ (.) نەبێت
+            val = val.replace(/[^0-9.]/g, '');
+            if(e.target.value !== val) {
+                e.target.value = val;
+            }
+        }
+    });
+
     window.onload = function() { loadHistory(); calculateAll(); };
 
     function updateRowNumbers() {
@@ -192,8 +205,8 @@
         tr.innerHTML = `
             <td class="row-num-cell"></td>
             <td><input type="text" placeholder="ناو"></td>
-            <td><input type="number" class="qty" min="0" placeholder="١" oninput="calculateAll()"></td>
-            <td><input type="number" class="price" min="0" placeholder="نرخ" oninput="calculateAll()"></td>
+            <td><input type="number" class="qty" min="0" placeholder="١" inputmode="decimal" oninput="calculateAll()"></td>
+            <td><input type="number" class="price" min="0" placeholder="نرخ" inputmode="decimal" oninput="calculateAll()"></td>
             <td><input type="text" class="row-total" placeholder="٠" readonly></td>
         `;
         tbody.appendChild(tr);
@@ -337,9 +350,8 @@
         });
     }
 
-    // فەنکشنی سڕینەوەی وەسڵێکی دیاریکراو
     function deleteReceipt(event, index) {
-        event.stopPropagation(); // بۆ ئەوەی ڕێگری بکات لە کردنەوەی پەنجەرەی وەسڵەکە کاتێک کلیک لە سڕینەوە دەکەیت
+        event.stopPropagation();
         if(confirm("ئایا دڵنیای لە سڕینەوەی ئەم وەسڵە؟")) {
             let history = JSON.parse(localStorage.getItem('dalinFull')) || [];
             history.splice(index, 1);
