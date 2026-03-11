@@ -243,7 +243,7 @@
             width: 10%; 
         }
         
-        input[type="text"], input[type="number"], input[type="date"], input[type="month"] { 
+        input[type="text"], input[type="number"], input[type="date"], input[type="month"], input[type="password"] { 
             width: 100%; 
             padding: 10px; 
             border: 1px solid var(--border-color); 
@@ -1254,8 +1254,34 @@
 
     <div id="tab-add-inventory" class="tab-content">
         <div class="debt-form" style="border-top: 3px solid var(--accent);">
-            <h3 style="margin-top:0; text-align:center; color:var(--primary);">📥 ناساندن و هێنانە ناوەوەی کاڵا</h3>
-            <p style="font-size:12px; color:var(--text-color); text-align:center; opacity:0.8;">بۆ تۆمارکردنی هەر کاڵایەکی نوێ یان زیادکردنی بڕەکەی</p>
+            <h3 style="margin-top:0; text-align:center; color:var(--primary);">📥 هێنانە ناوەوەی کاڵا (زیادکردنی بڕ)</h3>
+            <p style="font-size:12px; color:var(--text-color); text-align:center; opacity:0.8;">تەنها بڕی ئەو کاڵایانە زیاد بکە کە پێشتر لە کۆگا ناسێنراون</p>
+            
+            <div class="debt-input-group">
+                <label>کۆد یان بارکۆد:</label>
+                <div class="input-with-btn">
+                    <input type="text" id="empInvCode" placeholder="بە سکانەر بیخوێنەرەوە..." oninput="autoFillEmpInventory(this.value)">
+                    <button class="btn-camera" onclick="openScanner(this, 'empInvCode')">📷</button>
+                </div>
+            </div>
+            <div class="debt-input-group">
+                <label>ناوی کاڵا (تەنها بۆ خوێندنەوە):</label>
+                <input type="text" id="empInvName" readonly placeholder="ناوی کاڵا خۆکارانە لێرە دەردەکەوێت..." style="background:var(--border-color); cursor:not-allowed; border-color:transparent;">
+            </div>
+            <div class="debt-input-group" style="background:var(--container-bg); padding:10px; border-radius:6px; border:1px solid var(--accent);">
+                <label style="color:var(--accent);">📦 بڕی هاتوو بۆ مەخزەن (عەدەد):</label>
+                <input type="number" id="empInvQty" placeholder="بۆ نموونە: 50" style="border-color:var(--accent);">
+            </div>
+
+            <button class="btn btn-save" onclick="saveEmpInventoryQty()">💾 خستنە سەر مەخزەن</button>
+        </div>
+    </div>
+
+    <div id="tab-inventory" class="tab-content admin-only">
+        
+        <div class="debt-form" style="border-top: 3px solid var(--primary);">
+            <h3 style="margin-top:0; text-align:center; color:var(--primary);">⚙️ ناساندنی کاڵای نوێ / دەستکاریکردنی نرخ</h3>
+            <p style="font-size:12px; color:var(--text-color); text-align:center; opacity:0.8;">لێرە کاڵای نوێ بناسێنە، یان نرخ و ناوەکەی بگۆڕە</p>
             
             <div class="debt-input-group">
                 <label>کۆد یان بارکۆد:</label>
@@ -1279,15 +1305,13 @@
                 </div>
             </div>
             <div class="debt-input-group" style="background:var(--container-bg); padding:10px; border-radius:6px; border:1px solid var(--accent);">
-                <label style="color:var(--accent);">📦 بڕی هاتوو بۆ مەخزەن (عەدەد):</label>
-                <input type="number" id="invQty" placeholder="بۆ نموونە: 50 (ئارەزوومەندانە)" style="border-color:var(--accent);">
+                <label style="color:var(--accent);">📦 دانانی بڕی سەرەتایی (ئارەزوومەندانە):</label>
+                <input type="number" id="invQty" placeholder="بۆ نموونە: 50" style="border-color:var(--accent);">
             </div>
 
-            <button class="btn btn-save" onclick="saveInventoryItem()">💾 تۆمارکردن لە کۆگا</button>
+            <button class="btn btn-save" style="background-image: linear-gradient(135deg, var(--primary) 0%, #1a252f 100%);" onclick="saveInventoryItem()">💾 تۆمارکردنی کاڵا / گۆڕینی نرخ</button>
         </div>
-    </div>
 
-    <div id="tab-inventory" class="tab-content admin-only">
         <div class="history-section">
             <h3 style="color:var(--primary);">📦 لیستی هەموو کاڵاکانی کۆگا</h3>
             <input type="text" id="searchInventoryInput" class="search-box" placeholder="🔍 گەڕان بەدوای کاڵا یان کۆد..." oninput="renderInventoryTable()">
@@ -1490,7 +1514,7 @@
     <div class="modal-content">
         <div id="modalBody"></div>
         <div class="modal-btns">
-            <button class="btn btn-print" onclick="window.print()">🖨️ پرێنتکردن</button>
+            <button class="btn btn-print" onclick="window.print(); closeModal();">🖨️ پرێنتکردن</button>
             <button class="btn btn-download" onclick="downloadReceiptImage()">📥 مۆبایل</button>
             <button class="btn btn-close" onclick="closeModal()">داخستن</button>
         </div>
@@ -1817,7 +1841,7 @@
     }
 
     // ==========================================
-    // کۆگا (Inventory) + هاتووی کۆگا و بەستنەوەی
+    // کۆگا (Inventory) 
     // ==========================================
     function getInventory() {
         return JSON.parse(localStorage.getItem('dalinInventory')) || {};
@@ -1828,7 +1852,44 @@
         renderInventoryTable();
     }
 
-    // فەنکشنی نوێ بۆ هێنانەوەی زانیاری بەپێی بارکۆد لە هاتووی کۆگا
+    // فەنکشنی ناسینەوەی کاڵا بۆ کارمەند (لە هاتووی کۆگا)
+    function autoFillEmpInventory(val) {
+        const inv = getInventory();
+        const code = val.trim();
+        if(inv[code]) {
+            document.getElementById('empInvName').value = inv[code].name;
+            document.getElementById('empInvCode').style.borderColor = 'var(--success)';
+        } else {
+            document.getElementById('empInvName').value = '';
+            document.getElementById('empInvCode').style.borderColor = 'var(--border-color)';
+        }
+    }
+
+    // فەنکشنی سەیڤکردنی بڕ بۆ کارمەند (تەنها زیادکردن)
+    function saveEmpInventoryQty() {
+        const code = document.getElementById('empInvCode').value.trim();
+        const qtyVal = document.getElementById('empInvQty').value.trim();
+        const qty = qtyVal === "" ? 0 : parseFloat(qtyVal);
+
+        if(!code) return alert("تکایە بارکۆد لێبدە!");
+        if(qty <= 0) return alert("تکایە بڕی هاتووی دروست بنووسە!");
+
+        let inv = getInventory();
+        if(!inv[code]) {
+            return alert("ئەم کاڵایە لە کۆگادا نییە! تکایە بەڕێوەبەر ئاگادار بکەرەوە بۆ ناساندنی کاڵاکە.");
+        }
+
+        inv[code].qty = (inv[code].qty || 0) + qty;
+        saveInventory(inv);
+
+        document.getElementById('empInvCode').value = '';
+        document.getElementById('empInvName').value = '';
+        document.getElementById('empInvQty').value = '';
+        document.getElementById('empInvCode').style.borderColor = 'var(--border-color)';
+        alert("بڕی کاڵاکە سەرکەوتوویانە خرایە سەر مەخزەن!");
+    }
+
+    // فەنکشنی ناسینەوە بۆ ئەدمین (لە خشتەی کۆگا)
     function autoFillInventory(val) {
         const inv = getInventory();
         const code = val.trim();
@@ -1845,6 +1906,7 @@
         }
     }
 
+    // فەنکشنی ناساندنی تەواوی کاڵا بۆ ئەدمین
     function saveInventoryItem() {
         const code = document.getElementById('invCode').value.trim();
         const name = document.getElementById('invName').value.trim();
@@ -1873,7 +1935,7 @@
         document.getElementById('invSell').value = '';
         document.getElementById('invQty').value = '';
         document.getElementById('invCode').style.borderColor = 'var(--border-color)';
-        alert("کاڵاکە خەزن کرا لە کۆگادا!");
+        alert("کاڵاکە بە سەرکەوتوویی ناسێنرا / نوێکرایەوە!");
     }
 
     function renderInventoryTable() {
@@ -1895,7 +1957,7 @@
                 const tr = document.createElement('tr');
                 if(rowStyle) tr.style = rowStyle;
                 tr.innerHTML = `
-                    <td style="font-weight:bold;">${item.name}</td>
+                    <td style="font-weight:bold; cursor:pointer;" onclick="editInventoryItem('${code}')">${item.name}</td>
                     <td style="font-size:11px; direction:ltr;">${code}</td>
                     <td style="color:var(--success); font-weight:bold;">${item.sellPrice.toLocaleString()}</td>
                     <td>${item.buyPrice.toLocaleString()}</td>
@@ -1913,8 +1975,20 @@
         }
     }
 
+    function editInventoryItem(code) {
+        const inv = getInventory(); 
+        const item = inv[code];
+        if (item) {
+            document.getElementById('invCode').value = code; 
+            document.getElementById('invName').value = item.name;
+            document.getElementById('invBuy').value = item.buyPrice > 0 ? item.buyPrice.toLocaleString('en-US') : '';
+            document.getElementById('invSell').value = item.sellPrice.toLocaleString('en-US');
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+    }
+
     function deleteInventoryItem(code) {
-        if(confirm("دڵنیای لە سڕینەوەی ئەم کاڵایە لە کۆگا؟")) {
+        if(confirm("دڵنیای لە سڕینەوەی ئەم کاڵایە بە یەکجاری لە کۆگا؟")) {
             let inv = getInventory();
             delete inv[code];
             saveInventory(inv);
@@ -2043,7 +2117,6 @@
     function deleteSpecificRowSales(btnElem) {
         const row = btnElem.closest('tr');
         
-        // پرسیارکردن ئەگەر خانەکە بەتاڵ نەبوو
         const itemVal = row.querySelector('.item-input').value.trim();
         const priceVal = unformat(row.querySelector('.price').value);
         if(itemVal !== "" || priceVal > 0) {
@@ -2182,7 +2255,6 @@
             renderInventoryTable();
         }
         
-        // پاککردنەوەی شاشەی فرۆشتن بە شێوەیەکی ئۆتۆماتیکی
         document.getElementById('itemsBodySales').innerHTML = '';
         addRowSales();
         document.getElementById('grandTotalSales').innerText = '0';
@@ -2262,7 +2334,6 @@
         }
     }
     
-    // فەنکشنی داخستنی مۆدێل بە تەواوی
     function closeModal() { 
         const modal = document.getElementById('receiptModal');
         if(modal) {
@@ -2270,7 +2341,6 @@
         }
     }
 
-    // فەنکشنی دابەزاندنی وەسڵ وەک وێنە
     function downloadReceiptImage() {
         const target = document.getElementById('captureArea');
         if(!target) return;
@@ -2572,7 +2642,6 @@
         localStorage.setItem('dalinFull', JSON.stringify(history));
         loadHistory();
         
-        // پاککردنەوەی بێدەنگ لە کاتی سەیڤکردن
         document.getElementById('itemsBody').innerHTML = '';
         addRowCompare();
         document.getElementById('grandTotal').innerText = '0';
