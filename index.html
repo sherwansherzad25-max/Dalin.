@@ -30,22 +30,21 @@
         [data-theme="dark"] {
             --primary: #8ab4f8; --accent: #4dabf7; --danger: #ff6b6b; --success: #51cf66; --warning: #fcc419; --light: #343a40;
             --bg-color: #121212; --container-bg: #1e1e1e; --text-color: #f8f9fa; --input-bg: #2d2d2d; --table-header: #2a2a2a; --border-color: #444444;
-            --grad-primary: linear-gradient(135deg, #434343 0%, #000000 100%);
-            --grad-accent: linear-gradient(135deg, #005c97 0%, #363795 100%);
-            --grad-success: linear-gradient(135deg, #0ba360 0%, #3cba92 100%);
-            --grad-danger: linear-gradient(135deg, #b224ef 0%, #fd82f5 100%);
-            --grad-warning: linear-gradient(135deg, #e65c00 0%, #f9d423 100%);
         }
 
         body { background: var(--bg-color); margin: 0; padding: 10px; color: var(--text-color); min-height: 100vh; overflow-x: hidden; }
         .container { max-width: 100%; margin: auto; background: var(--container-bg); padding: 15px; border-radius: 16px; box-shadow: 0 8px 25px rgba(0,0,0,0.1); border-top: 5px solid var(--accent); position: relative; }
+        
+        /* چارەسەری کاتی شاشەی لا (Landscape) بۆ ئەوەی کیبۆرد شتەکان نەشارێتەوە */
+        @media (max-height: 500px) {
+            .container { padding-bottom: 50vh; }
+        }
         @media (min-width: 768px) { .container { max-width: 95%; padding: 20px; } }
 
-        /* ------------------ دیزاینی داشبۆردی کارتەکان ------------------ */
         .dashboard-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 15px; padding: 10px 0; animation: fadeIn 0.4s ease; }
         @media (max-width: 500px) { .dashboard-grid { grid-template-columns: 1fr; } }
 
-        .menu-card { background: var(--container-bg); border-radius: 20px; padding: 30px 15px; text-align: center; cursor: pointer; position: relative; overflow: hidden; box-shadow: 0 8px 20px rgba(0,0,0,0.06); border: 1px solid var(--border-color); display: flex; flex-direction: column; align-items: center; justify-content: center; min-height: 155px; transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275); color: white; }
+        .menu-card { background: var(--container-bg); border-radius: 20px; padding: 30px 15px; text-align: center; cursor: pointer; position: relative; overflow: hidden; box-shadow: 0 8px 20px rgba(0,0,0,0.06); border: 1px solid var(--border-color); display: flex; flex-direction: column; align-items: center; justify-content: center; min-height: 155px; color: white; }
         .menu-card:hover { transform: translateY(-8px) scale(1.02); box-shadow: 0 15px 35px rgba(0,0,0,0.15); }
         .menu-card::before { content: ''; position: absolute; top: 0; left: 0; right: 0; bottom: 0; background: linear-gradient(135deg, rgba(255,255,255,0.2) 0%, rgba(255,255,255,0) 100%); pointer-events: none; }
         .menu-card .icon { font-size: 45px; margin-bottom: 12px; filter: drop-shadow(2px 4px 6px rgba(0,0,0,0.2)); }
@@ -74,33 +73,29 @@
         [data-theme="dark"] .live-clock-bar, [data-theme="dark"] .main-header h1 { text-shadow: 1px 1px 4px rgba(0,0,0,0.8); color: #ffffff !important; }
 
         .header-controls-left { display: flex; flex-direction: row; align-items: center; gap: 8px; }
-        
-        @media (max-width: 768px) {
-            .header-controls-left { position: relative; width: 100%; justify-content: center; margin-bottom: 10px; }
-        }
+        @media (max-width: 768px) { .header-controls-left { position: relative; width: 100%; justify-content: center; margin-bottom: 10px; } }
 
         .tab-content { display: none; animation: fadeIn 0.4s ease; }
         .tab-content.active { display: block; }
         @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
 
-        .currency-selector { background: var(--input-bg); padding: 12px; border-radius: 10px; text-align: center; font-size: 15px; font-weight: bold; margin-bottom: 15px; border: 1px solid var(--border-color); color: var(--text-color); box-shadow: inset 0 2px 4px rgba(0,0,0,0.02); }
+        .currency-selector { background: var(--input-bg); padding: 12px; border-radius: 10px; text-align: center; font-size: 15px; font-weight: bold; margin-bottom: 15px; border: 1px solid var(--border-color); color: var(--text-color); }
         .currency-selector input[type="radio"] { transform: scale(1.2); margin: 0 5px; cursor: pointer; }
         
         .table-responsive { width: 100%; overflow-x: auto; margin-bottom: 15px; position: relative; z-index: 10; border-radius: 10px; border: 1px solid var(--border-color); box-shadow: 0 4px 10px rgba(0,0,0,0.03); }
         table { width: 100%; min-width: 500px; border-collapse: collapse; table-layout: fixed; background: var(--container-bg); }
         
-        .modal-content table { min-width: 100% !important; table-layout: auto !important; }
-        .modal-content th, .modal-content td { word-break: break-word !important; white-space: normal !important; }
-
         th { background: var(--table-header); padding: 12px 4px; border-bottom: 2px solid var(--border-color); font-size: 13px; text-align: center; color: var(--text-color); }
         td { padding: 10px 4px; border-bottom: 1px solid var(--border-color); text-align: center; position: relative; vertical-align: middle; }
         .row-num-cell { font-weight: bold; color: var(--accent); font-size: 14px; width: 6%; }
         
         input[type="text"], input[type="number"], input[type="date"], input[type="tel"] { 
-            width: 100%; padding: 12px 10px; border: 1px solid var(--border-color); border-radius: 8px; font-size: 14px; text-align: center; outline: none; background: var(--input-bg); color: var(--text-color); -webkit-appearance: none; box-shadow: inset 0 2px 4px rgba(0,0,0,0.02);
+            width: 100%; padding: 12px 10px; border: 1px solid var(--border-color); border-radius: 8px; font-size: 14px; text-align: center; outline: none; background: var(--input-bg); color: var(--text-color); -webkit-appearance: none; 
         }
         input:focus { border-color: var(--accent); box-shadow: 0 0 0 3px rgba(0,122,255,0.2); background: var(--container-bg); }
-        input.row-total { background-color: transparent; font-weight: bold; color: var(--text-color); pointer-events: none; border: none; box-shadow: none; }
+        
+        /* چارەسەری خانەی کۆی گشتی وەسڵ */
+        input.row-total { background-color: transparent; font-weight: bold; color: var(--success); pointer-events: none; border: none; box-shadow: none; padding: 0 !important; font-size: 16px; text-align: center; }
         
         .note-input { position: relative; z-index: 1; width: 100%; padding: 12px; border: 1px solid var(--border-color); border-radius: 8px; font-size: 14px; margin-bottom: 15px; text-align: right; }
         
@@ -108,9 +103,7 @@
         .top-btns { display: flex; gap: 12px; }
         
         .btn { color: white; border: none; padding: 14px; border-radius: 10px; cursor: pointer; font-weight: bold; font-size: 15px; text-align: center; flex: 1; background-size: 200% auto; text-shadow: 1px 1px 2px rgba(0,0,0,0.2); }
-        .btn:hover { background-position: right center; transform: translateY(-3px); box-shadow: 0 8px 15px rgba(0,0,0,0.2); }
         .btn:active { transform: scale(0.97); box-shadow: 0 3px 8px rgba(0,0,0,0.15); }
-        
         .btn-add { background-image: var(--grad-accent); box-shadow: 0 4px 10px rgba(0, 122, 255, 0.3); }
         .btn-remove { background-image: var(--grad-warning); box-shadow: 0 4px 10px rgba(243, 156, 18, 0.3); }
         .btn-clear { background-image: var(--grad-danger); box-shadow: 0 4px 10px rgba(231, 76, 60, 0.3); }
@@ -131,15 +124,15 @@
         .convert-box input { width: 90%; margin: 8px auto; display: block; padding: 6px; }
         .convert-box span { display: block; margin-top: 5px; font-size: 14px; font-weight: bold; color: var(--danger); }
         
-        .history-section { margin-top: 10px; background: var(--container-bg); padding: 15px; border-radius: 12px; border: 1px solid var(--border-color); box-shadow: 0 4px 10px rgba(0,0,0,0.02); }
+        .history-section { margin-top: 10px; background: var(--container-bg); padding: 15px; border-radius: 12px; border: 1px solid var(--border-color); }
         .history-section h3 { text-align: center; margin: 0 0 15px 0; color: var(--text-color); font-size: 16px; }
         .history-list { list-style: none; padding: 0; margin: 0; display: flex; flex-direction: column; gap: 10px; }
-        .history-card { background: var(--input-bg); border: 1px solid var(--border-color); padding: 12px; border-radius: 8px; display: flex; justify-content: space-between; align-items: center; transition: transform 0.2s, box-shadow 0.2s; }
-        .history-card:hover { transform: translateY(-2px); box-shadow: 0 4px 10px rgba(0,0,0,0.08); border-color: var(--accent); }
+        .history-card { background: var(--input-bg); border: 1px solid var(--border-color); padding: 12px; border-radius: 8px; display: flex; justify-content: space-between; align-items: center; }
+        .history-card:hover { border-color: var(--accent); }
         .history-info { flex-grow: 1; display: flex; justify-content: space-between; align-items: center; padding-left: 10px; cursor: pointer; color: var(--text-color); }
         .history-date { font-size: 13px; font-weight: bold; color: var(--text-color); opacity: 0.8; }
         .history-amount { font-weight: bold; color: var(--success); font-size: 16px; }
-        .btn-delete-receipt { background-image: var(--grad-danger); color: white; border: none; padding: 8px 12px; border-radius: 8px; cursor: pointer; font-size: 14px; display: flex; align-items: center; justify-content: center; box-shadow: 0 2px 5px rgba(231,76,60,0.3); }
+        .btn-delete-receipt { background-image: var(--grad-danger); color: white; border: none; padding: 8px 12px; border-radius: 8px; cursor: pointer; display: flex; align-items: center; justify-content: center; }
         
         .designer-name { text-align: center; margin-top: 30px; color: var(--text-color); font-size: 14px; font-weight: bold; border-top: 1px dashed var(--border-color); padding-top: 15px; opacity: 0.7; }
         
@@ -156,7 +149,6 @@
         .tafqeet-text { text-align: center; font-size: 13px; font-weight: bold; color: var(--text-color); background: var(--input-bg); padding: 10px; border-radius: 6px; margin-top: 10px; border: 1px solid var(--border-color); }
         .modal-btns { display: flex; gap: 10px; margin-top: 15px; }
         
-        @page { margin: 0; }
         @media print {
             body { background: #fff !important; color: #000 !important; margin: 0; padding: 0; }
             * { color: #000 !important; background: transparent !important; text-shadow: none !important; box-shadow: none !important; }
@@ -165,17 +157,9 @@
             .modal-content { border: none; width: 100%; max-width: 300px; margin: 0 auto; padding: 5px; }
             .modal-btns { display: none !important; }
             .receipt-print { border: none !important; padding: 0; margin: 0; width: 100%; background: #fff !important; color: #000 !important;}
-            .receipt-print h2, .receipt-print p, .receipt-print th, .receipt-print td { color: #000 !important; border-color: #000 !important; }
-            
             .receipt-print table { width: 100% !important; table-layout: fixed !important; }
             .receipt-print th { border-bottom: 2px solid #000 !important; }
             .receipt-print td, .receipt-print th { border-top: none; border-left: none; border-right: none; border-bottom: 1px dashed #000 !important; padding: 4px 1px !important; font-size: 12px !important; }
-            
-            .receipt-print th:nth-child(1), .receipt-print td:nth-child(1) { width: 50% !important; word-break: break-word !important; white-space: normal !important; text-align: right !important; }
-            .receipt-print th:nth-child(2), .receipt-print td:nth-child(2) { width: 12% !important; text-align: center !important; }
-            .receipt-print th:nth-child(3), .receipt-print td:nth-child(3) { width: 19% !important; text-align: center !important; }
-            .receipt-print th:nth-child(4), .receipt-print td:nth-child(4) { width: 19% !important; text-align: center !important; }
-
             .receipt-total { border-top: 2px solid #000 !important; color: #000 !important; padding-top: 5px; margin-top: 5px; }
             .tafqeet-text { border: 1px solid #000 !important; background: transparent !important; color: #000 !important;}
             #mainContainer { display: none !important; }
@@ -186,8 +170,7 @@
         .debt-input-group label { display: block; margin-bottom: 5px; font-weight: bold; font-size: 13px; color: var(--text-color); }
         
         .debt-type-toggle { display: flex; gap: 10px; margin-bottom: 15px; }
-        .mode-tab-label { flex: 1; text-align: center; padding: 12px; border-radius: 8px; cursor: pointer; font-weight: bold; border: 2px solid transparent; color: var(--text-color); background: transparent; transition: all 0.3s ease; transform: translateY(0); }
-        .mode-tab-label:hover { transform: translateY(-2px); }
+        .mode-tab-label { flex: 1; text-align: center; padding: 12px; border-radius: 8px; cursor: pointer; font-weight: bold; border: 2px solid transparent; color: var(--text-color); background: transparent; transition: all 0.3s ease; }
         input[name="debtSystemMode"]:checked + .mode-tab-label { border-color: var(--accent); color: var(--accent); background: var(--container-bg); box-shadow: 0 6px 12px rgba(0,0,0,0.1); transform: translateY(-3px); }
 
         .debt-type-toggle label.debt-action-lbl { flex: 1; text-align: center; padding: 12px; background: var(--container-bg); border-radius: 8px; cursor: pointer; font-weight: bold; border: 2px solid var(--border-color); transition: 0.2s; }
@@ -196,7 +179,6 @@
         .debt-type-toggle input[value="pay"]:checked + label.debt-action-lbl { border-color: var(--success); color: var(--success); background: rgba(40, 167, 69, 0.05); }
 
         .debtor-card { background: var(--input-bg); padding: 15px; border-radius: 10px; margin-bottom: 10px; border: 1px solid var(--border-color); display: flex; justify-content: space-between; align-items: center; cursor: pointer; transition: 0.2s; }
-        .debtor-card:hover { transform: translateY(-2px); box-shadow: 0 4px 10px rgba(0,0,0,0.05); border-color: var(--accent); }
         .debtor-name { font-size: 15px; font-weight: bold; color: var(--primary); }
         .debtor-amount { font-size: 15px; font-weight: bold; color: var(--danger); display: block; }
         .debtor-amount.usd { color: var(--accent); }
@@ -208,25 +190,23 @@
         .backup-icon { font-size: 30px; margin-bottom: 10px; }
         .file-upload-wrapper { position: relative; overflow: hidden; display: inline-block; width: 100%; margin-top: 10px; }
         .file-upload-wrapper input[type=file] { font-size: 100px; position: absolute; left: 0; top: 0; opacity: 0; cursor: pointer; height: 100%; }
-        .btn-upload { background-image: var(--grad-warning); color: white; padding: 12px; border-radius: 8px; display: block; font-weight: bold; text-shadow: 1px 1px 2px rgba(0,0,0,0.2); box-shadow: 0 4px 10px rgba(243, 156, 18, 0.3); }
+        .btn-upload { background-image: var(--grad-warning); color: white; padding: 12px; border-radius: 8px; display: block; font-weight: bold; box-shadow: 0 4px 10px rgba(243, 156, 18, 0.3); }
 
         .autocomplete-list { position: absolute; width: 100%; background: var(--container-bg); border: 1px solid var(--accent); border-top: none; z-index: 9999; border-radius: 0 0 8px 8px; max-height: 180px; overflow-y: auto; display: none; box-shadow: 0 8px 16px rgba(0,0,0,0.15); }
-        .autocomplete-item { padding: 12px; cursor: pointer; border-bottom: 1px solid var(--border-color); font-size: 14px; font-weight: bold; color: var(--text-color); transition: 0.2s; }
+        .autocomplete-item { padding: 12px; cursor: pointer; border-bottom: 1px solid var(--border-color); font-size: 14px; font-weight: bold; color: var(--text-color); }
         .autocomplete-item:hover { background-color: rgba(0, 122, 255, 0.1); color: var(--accent); }
         
         .quick-actions { display: flex; gap: 10px; margin-bottom: 15px; }
-        .btn-quick { flex: 1; padding: 12px; border-radius: 8px; border: none; font-weight: bold; color: white; cursor: pointer; font-size: 14px; transition: 0.2s; }
-        .btn-quick:hover { transform: translateY(-2px); }
-        .btn-quick-add { background-image: var(--grad-danger); box-shadow: 0 4px 10px rgba(231, 76, 60, 0.3);}
-        .btn-quick-pay { background-image: var(--grad-success); box-shadow: 0 4px 10px rgba(40, 167, 69, 0.3);}
+        .btn-quick { flex: 1; padding: 12px; border-radius: 8px; border: none; font-weight: bold; color: white; cursor: pointer; font-size: 14px; }
+        .btn-quick-add { background-image: var(--grad-danger); }
+        .btn-quick-pay { background-image: var(--grad-success); }
 
         .quick-form-area { background: var(--input-bg); padding: 12px; border-radius: 8px; margin-bottom: 15px; display: none; border: 1px solid var(--accent); }
         .quick-form-area input, .quick-form-area select { width: 100%; margin-bottom: 10px; padding: 10px; border-radius: 6px; border: 1px solid var(--border-color); font-size: 14px; background: var(--container-bg); color: var(--text-color); }
         
-        .btn-delete-row { background-image: var(--grad-danger); color: white; border: none; padding: 6px 10px; border-radius: 6px; cursor: pointer; font-size: 14px; transition: 0.2s; box-shadow: 0 2px 5px rgba(231, 76, 60, 0.3); }
-        .btn-delete-row:active { transform: scale(0.9); }
+        .btn-delete-row { background-image: var(--grad-danger); color: white; border: none; padding: 6px 10px; border-radius: 6px; cursor: pointer; font-size: 14px; }
         
-        .data-table { width: 100%; border-collapse: collapse; font-size: 13px; text-align: center; margin-bottom: 10px; background: var(--container-bg); border-radius: 10px; overflow: hidden; box-shadow: 0 4px 15px rgba(0,0,0,0.03); }
+        .data-table { width: 100%; border-collapse: collapse; font-size: 13px; text-align: center; margin-bottom: 10px; background: var(--container-bg); border-radius: 10px; overflow: hidden; }
         .data-table th { background: var(--primary); color: white; padding: 12px 5px; font-weight: bold; border: 1px solid var(--border-color); }
         .data-table td { padding: 10px 5px; border: 1px solid var(--border-color); color: var(--text-color); vertical-align: middle; }
         .data-table tr:nth-child(even) { background-color: var(--input-bg); }
@@ -286,10 +266,10 @@
                 <thead>
                     <tr>
                         <th style="width: 6%;">#</th>
-                        <th style="width: 40%;">ناوی کاڵا</th>
+                        <th style="width: 33%;">ناوی کاڵا</th>
                         <th style="width: 15%;">بڕ</th>
                         <th style="width: 20%;">نرخ</th>
-                        <th style="width: 12%;">کۆ</th>
+                        <th style="width: 19%;">کۆ</th>
                         <th style="width: 7%;">🗑️</th>
                     </tr>
                 </thead>
@@ -501,9 +481,17 @@
 </div>
 
 <script>
+    // --- چارەسەری کیبۆرد: کاتێک خانەیەک فوکەس دەکرێت دێتە ناوەڕاستی شاشە ---
+    document.addEventListener('focusin', function(e) {
+        if (e.target.tagName === 'INPUT' || e.target.tagName === 'SELECT' || e.target.tagName === 'TEXTAREA') {
+            setTimeout(() => {
+                e.target.scrollIntoView({ behavior: 'smooth', block: 'center' });
+            }, 300);
+        }
+    });
+
     window.addEventListener('afterprint', function() {});
 
-    // --- کاتی زیندوو ---
     function updateLiveClock() {
         const now = new Date();
         const timeStr = now.toLocaleTimeString('en-US', {hour:'2-digit', minute:'2-digit', second:'2-digit'});
@@ -523,7 +511,6 @@
             localStorage.setItem('khalkhalanThemePref', 'dark');
         }
     }
-    
     if(localStorage.getItem('khalkhalanThemePref') === 'dark') document.body.setAttribute('data-theme', 'dark');
 
     function toggleFullScreen() {
@@ -531,21 +518,31 @@
         else document.exitFullscreen();
     }
 
-    function goHome() {
+    // --- سیستەمی دوگمەی گەڕانەوە (History API Back Button) ---
+    function goHome(pushToHistory = true) {
         const activeTab = document.querySelector('.tab-content.active');
         if (activeTab && activeTab.id === 'tab-compare') {
             const gtComp = unformat(document.getElementById('grandTotal').innerText);
-            if (gtComp > 0 && !confirm("⚠️ وەسڵی بەراوردەکەت سەیڤ نەکردووە!\nدڵنیای دەتەوێت بگەڕێیتەوە سەرەتا؟")) return;
+            if (gtComp > 0 && !confirm("⚠️ وەسڵی بەراوردەکەت سەیڤ نەکردووە!\nدڵنیای دەتەوێت بگەڕێیتەوە سەرەتا؟")) {
+                if(pushToHistory) history.pushState({ tab: 'tab-compare' }, "", "#tab-compare"); // ئەگەر پەشیمان بووەوە با لەم تابە بمێنێتەوە
+                return;
+            }
         }
         document.getElementById('mainDashboard').style.display = 'grid';
         document.querySelectorAll('.tab-content').forEach(tab => tab.classList.remove('active'));
+        
+        if (pushToHistory) {
+            history.pushState({ tab: 'home' }, "", window.location.pathname);
+        }
     }
 
-    function switchTab(tabId) {
+    function switchTab(tabId, pushToHistory = true) {
         const activeTab = document.querySelector('.tab-content.active');
         if (activeTab && activeTab.id === 'tab-compare' && tabId !== 'tab-compare') {
             const gtComp = unformat(document.getElementById('grandTotal').innerText);
-            if (gtComp > 0 && !confirm("⚠️ وەسڵی بەراوردەکەت سەیڤ نەکردووە!\nدڵنیای دەتەوێت بچیتە بەشێکی تر؟")) return;
+            if (gtComp > 0 && !confirm("⚠️ وەسڵی بەراوردەکەت سەیڤ نەکردووە!\nدڵنیای دەتەوێت بچیتە بەشێکی تر؟")) {
+                return;
+            }
         }
 
         document.getElementById('mainDashboard').style.display = 'none';
@@ -557,7 +554,20 @@
             document.getElementById('modeCustomer').checked = true;
             switchDebtMode('customer');
         }
+
+        if (pushToHistory) {
+            history.pushState({ tab: tabId }, "", "#" + tabId);
+        }
     }
+
+    // گوێگرتن بۆ دوگمەی Back ی مۆبایلەکە
+    window.addEventListener('popstate', function(event) {
+        if (event.state && event.state.tab && event.state.tab !== 'home') {
+            switchTab(event.state.tab, false);
+        } else {
+            goHome(false);
+        }
+    });
 
     function unformat(val) {
         if (!val) return 0;
@@ -610,6 +620,9 @@
     }
 
     window.onload = function() { 
+        // کاتی کردنەوەی بەرنامەکە شاشەی سەرەکی وەک State یەکەم دەنێسین
+        history.replaceState({ tab: 'home' }, "", window.location.pathname);
+        
         loadHistory(); calculateAllCompare(); 
         document.getElementById('modeCustomer').checked = true; switchDebtMode('customer'); renderExpensesTable(); updateLiveClock();
     };
@@ -790,7 +803,7 @@
         
         let debts = getDebts(); 
         if(!debts[nameInput]) debts[nameInput] = { totalIQD: 0, totalUSD: 0, history: [], phone: phoneInput };
-        else if (phoneInput) debts[nameInput].phone = phoneInput; // Update phone if new one provided
+        else if (phoneInput) debts[nameInput].phone = phoneInput; 
         
         if(debts[nameInput].total !== undefined) { debts[nameInput].totalIQD = debts[nameInput].total; delete debts[nameInput].total; }
         let currentTotal = currency === 'IQD' ? debts[nameInput].totalIQD : debts[nameInput].totalUSD;
@@ -852,7 +865,6 @@
         sortedNames.forEach(name => {
             const data = debts[name]; let dIQD = data.totalIQD !== undefined ? data.totalIQD : (data.total || 0); let dUSD = data.totalUSD || 0; globalIQD += dIQD; globalUSD += dUSD;
             
-            // گەڕانی زیرەک بە ناو یان ژمارەی مۆبایل
             if(name.toLowerCase().includes(searchTerm) || (data.phone && data.phone.includes(searchTerm))) {
                 hasResults = true; const card = document.createElement('div'); card.className = 'debtor-card'; 
                 
@@ -873,7 +885,6 @@
                     dueHtml = `<div style="font-size:12px; margin-top:5px; color:${color}; font-weight:bold;">📅 کاتی دانەوە: <span dir="ltr">${data.dueDate}</span> ${text}</div>`;
                 }
                 
-                // پیشاندانی ژمارەی مۆبایل ئەگەر هەبوو
                 let phoneHtml = data.phone ? `<div style="font-size:12px; color:#888; margin-top:3px;">📞 <span dir="ltr">${data.phone}</span></div>` : '';
 
                 const deleteBtnHtml = (dIQD === 0 && dUSD === 0) ? `<button onclick="deleteDebtor(event, '${name}')" class="btn-delete-receipt" style="padding:6px;">🗑️</button>` : '';
@@ -897,7 +908,6 @@
         const quickActionsHtml = `<div data-html2canvas-ignore="true"><div class="quick-actions"><button class="btn-quick btn-quick-add" onclick="toggleQuickForm('add')">🔴 قەرزی نوێ</button><button class="btn-quick btn-quick-pay" onclick="toggleQuickForm('pay')">🟢 ${labelPay}</button></div><div id="quickFormArea" class="quick-form-area"><select id="quickCurrency"><option value="IQD">دینار</option><option value="USD">دۆلار</option></select><input type="text" id="quickAmount" class="format-num" inputmode="decimal" placeholder="بڕی پارە..."><input type="text" id="quickNote" placeholder="تێبینی..."><div id="quickDueDateContainer" style="display:none;"><input type="date" id="quickDueDate" style="width:100%; margin-bottom:10px; padding:10px; border-radius:6px; border:1px solid var(--border-color); background:var(--container-bg); color:var(--text-color);"></div><div style="display:flex; gap:10px;"><button class="btn btn-save" id="quickSubmitBtn" onclick="submitQuickDebt('${name}')">تۆمارکردن</button><button class="btn btn-clear" onclick="toggleQuickForm('close')">داخستن</button></div></div></div>`;
         let iqdHtml = dIQD > 0 ? `<div style="font-size:22px; color:var(--danger);">${dIQD.toLocaleString()} دینار</div>` : ''; let usdHtml = dUSD > 0 ? `<div style="font-size:22px; color:var(--accent); margin-top:10px;">${dUSD.toLocaleString()} دۆلار</div>` : ''; let zeroHtml = (dIQD === 0 && dUSD === 0) ? `<div style="font-size:22px; color:var(--success);">سفر بووەتەوە</div>` : '';
         
-        // زیادکردنی تەفقیت (خوێندنەوەی پارەکە)
         const tafqeetIqd = dIQD > 0 ? `<div class="tafqeet-text" style="color:var(--danger); border-color:var(--danger); background:rgba(231,76,60,0.05);">تەنها: ${numberToKurdishWords(dIQD)} دینار</div>` : ''; 
         const tafqeetUsd = dUSD > 0 ? `<div class="tafqeet-text" style="color:var(--accent); border-color:var(--accent); background:rgba(0,122,255,0.05);">تەنها: ${numberToKurdishWords(dUSD)} دۆلار</div>` : '';
         
