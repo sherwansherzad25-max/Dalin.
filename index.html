@@ -35,7 +35,6 @@
         body { background: var(--bg-color); margin: 0; padding: 10px; color: var(--text-color); min-height: 100vh; overflow-x: hidden; }
         .container { max-width: 100%; margin: auto; background: var(--container-bg); padding: 15px; border-radius: 16px; box-shadow: 0 8px 25px rgba(0,0,0,0.1); border-top: 5px solid var(--accent); position: relative; }
         
-        /* چارەسەری شاشەی لا (Landscape) بۆ کیبۆرد */
         @media (max-height: 500px) {
             #tab-compare .table-responsive { padding-bottom: 60vh; }
             .container { padding-bottom: 50vh; }
@@ -95,7 +94,6 @@
         }
         input:focus { border-color: var(--accent); box-shadow: 0 0 0 3px rgba(0,122,255,0.2); background: var(--container-bg); }
         
-        /* چارەسەری کۆتایی بۆ خانەی کۆی گشتی کە ژمارەکە نەیبڕێت */
         input.row-total { 
             background-color: transparent !important; 
             font-weight: bold !important; 
@@ -151,58 +149,25 @@
         .designer-name { text-align: center; margin-top: 30px; color: var(--text-color); font-size: 14px; font-weight: bold; border-top: 1px dashed var(--border-color); padding-top: 15px; opacity: 0.7; }
         
         .modal { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.7); backdrop-filter: blur(5px); z-index: 10000; align-items: center; justify-content: center; padding: 10px; }
-        .modal-content { background: var(--container-bg); color: var(--text-color); width: 100%; max-width: 450px; border-radius: 16px; padding: 15px; max-height: 95vh; overflow-y: auto; position: relative; box-shadow: 0 15px 40px rgba(0,0,0,0.2); }
+        .modal-content { background: var(--container-bg); color: var(--text-color); width: 100%; max-width: 400px; border-radius: 16px; padding: 15px; max-height: 95vh; overflow-y: auto; overflow-x: hidden; position: relative; box-shadow: 0 15px 40px rgba(0,0,0,0.2); }
 
-        /* چارەسەری کۆتایی بۆ وەسڵەکە تا لە شاشە دەرنەچێت */
+        /* قیاسی وەسڵ بە جێگیری کە ناچێتە دەرەوە */
         .receipt-print { 
             background: var(--container-bg); 
-            padding: 10px !important; 
+            padding: 15px !important; 
             border: 2px dashed var(--border-color); 
             border-radius: 8px; 
             margin-bottom: 20px; 
             width: 100%; 
-            max-width: 100%; 
             box-sizing: border-box; 
             color: var(--text-color); 
-            overflow: hidden; 
         }
         .receipt-print h2 { text-align: center; margin: 0 0 5px 0; color: var(--text-color); font-size: 20px; font-weight: bold; }
-        .receipt-print p { text-align: center; margin: 0 0 15px 0; color: var(--text-color); font-size: 12px; line-height: 1.4; }
-        .receipt-print table { 
-            width: 100% !important; 
-            border-collapse: collapse; 
-            margin-bottom: 15px; 
-            table-layout: auto !important; 
-        }
-        .receipt-print th, .receipt-print td { 
-            border: 1px solid var(--border-color); 
-            padding: 6px 2px !important; 
-            text-align: center; 
-            font-size: 12px !important; 
-            color: var(--text-color); 
-            word-break: break-word; 
-        }
-        .receipt-print th { background: var(--table-header); }
+        .receipt-print p { text-align: center; margin: 0 0 15px 0; color: var(--text-color); font-size: 13px; line-height: 1.4; }
         .receipt-total { text-align: left; font-size: 16px; font-weight: bold; color: var(--text-color); padding-top: 10px; margin-top: 5px; border-top: 2px dashed var(--border-color); }
         .tafqeet-text { text-align: center; font-size: 13px; font-weight: bold; color: var(--text-color); background: var(--input-bg); padding: 10px; border-radius: 6px; margin-top: 10px; border: 1px solid var(--border-color); width: 100%; box-sizing: border-box; }
         .modal-btns { display: flex; gap: 10px; margin-top: 15px; }
         
-        @media print {
-            body { background: #fff !important; color: #000 !important; margin: 0; padding: 0; }
-            * { color: #000 !important; background: transparent !important; text-shadow: none !important; box-shadow: none !important; }
-            #receiptModal { display: block !important; position: absolute; left: 0; top: 0; width: 100%; }
-            #extendDateModal { display: none !important; }
-            .modal-content { border: none; width: 100%; max-width: 300px; margin: 0 auto; padding: 5px; }
-            .modal-btns { display: none !important; }
-            .receipt-print { border: none !important; padding: 0; margin: 0; width: 100%; background: #fff !important; color: #000 !important;}
-            .receipt-print table { width: 100% !important; table-layout: auto !important; }
-            .receipt-print th { border-bottom: 2px solid #000 !important; }
-            .receipt-print td, .receipt-print th { border-top: none; border-left: none; border-right: none; border-bottom: 1px dashed #000 !important; padding: 4px 1px !important; font-size: 12px !important; }
-            .receipt-total { border-top: 2px solid #000 !important; color: #000 !important; padding-top: 5px; margin-top: 5px; }
-            .tafqeet-text { border: 1px solid #000 !important; background: transparent !important; color: #000 !important;}
-            #mainContainer { display: none !important; }
-        }
-
         .debt-form { background: var(--input-bg); padding: 15px; border-radius: 12px; border: 1px solid var(--border-color); margin-bottom: 20px; color: var(--text-color); box-shadow: 0 4px 10px rgba(0,0,0,0.02); }
         .debt-input-group { margin-bottom: 12px; position: relative; }
         .debt-input-group label { display: block; margin-bottom: 5px; font-weight: bold; font-size: 13px; color: var(--text-color); }
@@ -373,7 +338,6 @@
         <button class="back-home-btn" onclick="goHome()">🏠 گەڕانەوە بۆ سەرەتا</button>
         <div class="debt-form" style="border-color:var(--danger); border-top:3px solid var(--danger);">
             <h3 style="margin-top:0; text-align:center; color:var(--danger);">💸 تۆمارکردنی خەرجی ڕۆژانە</h3>
-            
             <div class="debt-input-group">
                 <label>جۆری خەرجی:</label>
                 <input type="text" id="expName" placeholder="نموونە: کرێی دوکان، پارەی کارەبا...">
@@ -413,7 +377,6 @@
         <div class="debt-type-toggle" style="background:var(--input-bg); padding:8px; border-radius:12px; box-shadow: inset 0 2px 5px rgba(0,0,0,0.05);">
             <input type="radio" id="modeCustomer" name="debtSystemMode" value="customer" checked onchange="switchDebtMode('customer')">
             <label for="modeCustomer" class="mode-tab-label">👥 قەرزی کڕیارەکان</label>
-            
             <input type="radio" id="modeCompany" name="debtSystemMode" value="company" onchange="switchDebtMode('company')">
             <label for="modeCompany" class="mode-tab-label">🏢 قەرزی خۆم لە کۆمپانیاکان</label>
         </div>
@@ -433,7 +396,6 @@
                 <input type="text" id="debtorName" placeholder="ناوی سیانی یان نازناو..." oninput="showAutocomplete()" onblur="hideAutocompleteDelayed()" autocomplete="off">
                 <div id="autocompleteList" class="autocomplete-list"></div>
             </div>
-            
             <div class="debt-input-group">
                 <label>ژمارەی مۆبایل (ئارەزوومەندانە):</label>
                 <input type="tel" id="debtPhone" placeholder="0770..." dir="ltr" style="text-align:left;">
@@ -566,10 +528,7 @@
         }
         document.getElementById('mainDashboard').style.display = 'grid';
         document.querySelectorAll('.tab-content').forEach(tab => tab.classList.remove('active'));
-        
-        if (pushToHistory) {
-            history.pushState({ tab: 'home' }, "", window.location.pathname);
-        }
+        if (pushToHistory) { history.pushState({ tab: 'home' }, "", window.location.pathname); }
     }
 
     function switchTab(tabId, pushToHistory = true) {
@@ -580,28 +539,18 @@
                 return;
             }
         }
-
         document.getElementById('mainDashboard').style.display = 'none';
         document.querySelectorAll('.tab-content').forEach(tab => tab.classList.remove('active'));
         document.getElementById(tabId).classList.add('active');
         
         if(tabId === 'tab-expenses') renderExpensesTable();
-        if(tabId === 'tab-debts') {
-            document.getElementById('modeCustomer').checked = true;
-            switchDebtMode('customer');
-        }
-
-        if (pushToHistory) {
-            history.pushState({ tab: tabId }, "", "#" + tabId);
-        }
+        if(tabId === 'tab-debts') { document.getElementById('modeCustomer').checked = true; switchDebtMode('customer'); }
+        if (pushToHistory) { history.pushState({ tab: tabId }, "", "#" + tabId); }
     }
 
     window.addEventListener('popstate', function(event) {
-        if (event.state && event.state.tab && event.state.tab !== 'home') {
-            switchTab(event.state.tab, false);
-        } else {
-            goHome(false);
-        }
+        if (event.state && event.state.tab && event.state.tab !== 'home') { switchTab(event.state.tab, false); } 
+        else { goHome(false); }
     });
 
     function unformat(val) {
@@ -617,9 +566,7 @@
                 let parts = val.split('.');
                 parts[0] = parseInt(parts[0], 10).toLocaleString('en-US');
                 e.target.value = parts.length > 1 ? parts[0] + '.' + parts[1] : parts[0];
-            } else {
-                e.target.value = "";
-            }
+            } else { e.target.value = ""; }
         }
     });
 
@@ -741,12 +688,41 @@
         const currencyName = document.getElementById('mainCurrencySymbol').innerText; const numValue = unformat(grandTotal);
         window.pendingCompareReceipt = { date: new Date().toLocaleDateString('en-GB') + " | " + new Date().toLocaleTimeString('en-US', {hour:'2-digit', minute:'2-digit'}), totalStr: grandTotal + " " + currencyName, tafqeet: numberToKurdishWords(numValue) + " " + currencyName, items: items, note: document.getElementById('receiptNote').value.trim() };
         let rows = '';
-        window.pendingCompareReceipt.items.forEach(it => { rows += `<tr><td style="border: 1px solid var(--border-color); padding: 6px 2px; word-break: break-word; white-space: normal; text-align: right;">${it.name}</td><td style="border: 1px solid var(--border-color); padding: 6px 2px; text-align: center;">${it.qty}</td><td style="border: 1px solid var(--border-color); padding: 6px 2px; text-align: center;">${it.price}</td><td style="border: 1px solid var(--border-color); padding: 6px 2px; text-align: center;">${it.total}</td></tr>`; });
+        
+        // خشتەی ناوەوەی وەسڵ ڕێژەکەی فیکس کراوە تا نەچێتە دەرەوە
+        window.pendingCompareReceipt.items.forEach(it => { 
+            rows += `<tr>
+                <td style="border: 1px solid var(--border-color); padding: 4px; word-break: break-word; white-space: normal; text-align: right; font-size:12px;">${it.name}</td>
+                <td style="border: 1px solid var(--border-color); padding: 4px; text-align: center; font-size:12px;">${it.qty}</td>
+                <td style="border: 1px solid var(--border-color); padding: 4px; text-align: center; font-size:12px;">${it.price}</td>
+                <td style="border: 1px solid var(--border-color); padding: 4px; text-align: center; font-size:12px;">${it.total}</td>
+            </tr>`; 
+        });
+        
         const noteHtml = window.pendingCompareReceipt.note ? `<div style="text-align:right; margin-bottom:10px; font-size:14px; border-top:1px dashed var(--border-color); padding-top:5px; color:var(--text-color);"><b>تێبینی:</b> ${window.pendingCompareReceipt.note}</div>` : '';
         const tafqeetHtml = window.pendingCompareReceipt.tafqeet ? `<div class="tafqeet-text">تەنها: ${window.pendingCompareReceipt.tafqeet}</div>` : '';
         
-        /* خشتەی وەسڵ بۆ پرێنت کرایە Auto تا نەچێتە دەرەوە */
-        document.getElementById('modalBody').innerHTML = `<div id="captureArea" class="receipt-print" dir="rtl"><h3 style="text-align:center; color:var(--danger); margin-top:0; border-bottom:2px dashed var(--danger); padding-bottom:10px;">⚠️ پێداچوونەوەی وەسڵ ⚠️</h3><h2 style="text-align:center; margin: 0 0 5px 0; color:var(--text-color);">مارکێتی دەلین</h2><p style="text-align:center; margin: 0 0 15px 0; color:var(--text-color); line-height: 1.6;">خاوەنی: عمر علی<br>ناونیشان: چەمچەماڵ - بانی مەقان<br><span style="direction:ltr; display:inline-block; margin-top:5px;">${window.pendingCompareReceipt.date}</span></p><table style="width: 100%; border-collapse: collapse; margin-bottom: 15px; table-layout: auto;"><thead><tr><th style="width: 45%; border: 1px solid var(--border-color); padding: 4px; text-align: right;">بابەت</th><th style="width: 15%; border: 1px solid var(--border-color); padding: 4px;">بڕ</th><th style="width: 20%; border: 1px solid var(--border-color); padding: 4px;">نرخ</th><th style="width: 20%; border: 1px solid var(--border-color); padding: 4px;">کۆ</th></tr></thead><tbody>${rows}</tbody></table>${noteHtml}<div class="receipt-total" style="color:var(--text-color);">کۆی گشتی: ${window.pendingCompareReceipt.totalStr}</div>${tafqeetHtml}</div>`;
+        document.getElementById('modalBody').innerHTML = `
+            <div id="captureArea" class="receipt-print" dir="rtl">
+                <h3 style="text-align:center; color:var(--danger); margin-top:0; border-bottom:2px dashed var(--danger); padding-bottom:10px;">⚠️ پێداچوونەوەی وەسڵ ⚠️</h3>
+                <h2 style="text-align:center; margin: 0 0 5px 0; color:var(--text-color);">مارکێتی دەلین</h2>
+                <p style="text-align:center; margin: 0 0 15px 0; color:var(--text-color); line-height: 1.6;">خاوەنی: عمر علی<br>ناونیشان: چەمچەماڵ - بانی مەقان<br><span style="direction:ltr; display:inline-block; margin-top:5px;">${window.pendingCompareReceipt.date}</span></p>
+                <table style="width: 100%; border-collapse: collapse; margin-bottom: 15px; table-layout: fixed;">
+                    <thead>
+                        <tr>
+                            <th style="width: 40%; border: 1px solid var(--border-color); padding: 4px; text-align: right; font-size:12px;">بابەت</th>
+                            <th style="width: 15%; border: 1px solid var(--border-color); padding: 4px; font-size:12px;">بڕ</th>
+                            <th style="width: 20%; border: 1px solid var(--border-color); padding: 4px; font-size:12px;">نرخ</th>
+                            <th style="width: 25%; border: 1px solid var(--border-color); padding: 4px; font-size:12px;">کۆ</th>
+                        </tr>
+                    </thead>
+                    <tbody>${rows}</tbody>
+                </table>
+                ${noteHtml}
+                <div class="receipt-total" style="color:var(--text-color);">کۆی گشتی: ${window.pendingCompareReceipt.totalStr}</div>
+                ${tafqeetHtml}
+            </div>`;
+            
         document.getElementById('modalBtns').innerHTML = `<button class="btn btn-save" style="flex:2;" onclick="confirmSaveCompareReceipt()">💾 پاشەکەوتکردنی یەکجاری</button><button class="btn btn-close" style="flex:1;" onclick="closeModal()">❌ پەشیمانبوونەوە</button>`;
         document.getElementById('receiptModal').style.display = 'flex';
     }
@@ -771,18 +747,44 @@
     function openReceiptModal(index) {
         const rec = (JSON.parse(localStorage.getItem('khalkhalanFull')) || [])[index]; if(!rec) return;
         let rows = '';
-        rec.items.forEach(it => { rows += `<tr><td style="border: 1px solid var(--border-color); padding: 6px 2px; word-break: break-word; white-space: normal; text-align: right;">${it.name}</td><td style="border: 1px solid var(--border-color); padding: 6px 2px; text-align: center;">${it.qty}</td><td style="border: 1px solid var(--border-color); padding: 6px 2px; text-align: center;">${it.price}</td><td style="border: 1px solid var(--border-color); padding: 6px 2px; text-align: center;">${it.total}</td></tr>`; });
+        rec.items.forEach(it => { 
+            rows += `<tr>
+                <td style="border: 1px solid var(--border-color); padding: 4px; word-break: break-word; white-space: normal; text-align: right; font-size:12px;">${it.name}</td>
+                <td style="border: 1px solid var(--border-color); padding: 4px; text-align: center; font-size:12px;">${it.qty}</td>
+                <td style="border: 1px solid var(--border-color); padding: 4px; text-align: center; font-size:12px;">${it.price}</td>
+                <td style="border: 1px solid var(--border-color); padding: 4px; text-align: center; font-size:12px;">${it.total}</td>
+            </tr>`; 
+        });
+        
         const noteHtml = rec.note ? `<div style="text-align:right; margin-bottom:10px; font-size:14px; border-top:1px dashed var(--border-color); padding-top:5px; color:var(--text-color);"><b>تێبینی:</b> ${rec.note}</div>` : '';
         const tafqeetHtml = rec.tafqeet ? `<div class="tafqeet-text">تەنها: ${rec.tafqeet}</div>` : '';
         
-        document.getElementById('modalBody').innerHTML = `<div id="captureArea" class="receipt-print" dir="rtl"><h2 style="text-align:center; margin: 0 0 5px 0; color:var(--text-color);">مارکێتی دەلین</h2><p style="text-align:center; margin: 0 0 15px 0; color:var(--text-color); line-height: 1.6;">خاوەنی: عمر علی<br>ناونیشان: چەمچەماڵ - بانی مەقان<br><span style="direction:ltr; display:inline-block; margin-top:5px;">${rec.date}</span></p><table style="width: 100%; border-collapse: collapse; margin-bottom: 15px; table-layout: auto;"><thead><tr><th style="width: 45%; border: 1px solid var(--border-color); padding: 4px; text-align: right;">بابەت</th><th style="width: 15%; border: 1px solid var(--border-color); padding: 4px;">بڕ</th><th style="width: 20%; border: 1px solid var(--border-color); padding: 4px;">نرخ</th><th style="width: 20%; border: 1px solid var(--border-color); padding: 4px;">کۆ</th></tr></thead><tbody>${rows}</tbody></table>${noteHtml}<div class="receipt-total" style="color:var(--text-color);">کۆی گشتی: ${rec.totalStr}</div>${tafqeetHtml}</div>`;
+        document.getElementById('modalBody').innerHTML = `
+            <div id="captureArea" class="receipt-print" dir="rtl">
+                <h2 style="text-align:center; margin: 0 0 5px 0; color:var(--text-color);">مارکێتی دەلین</h2>
+                <p style="text-align:center; margin: 0 0 15px 0; color:var(--text-color); line-height: 1.6;">خاوەنی: عمر علی<br>ناونیشان: چەمچەماڵ - بانی مەقان<br><span style="direction:ltr; display:inline-block; margin-top:5px;">${rec.date}</span></p>
+                <table style="width: 100%; border-collapse: collapse; margin-bottom: 15px; table-layout: fixed;">
+                    <thead>
+                        <tr>
+                            <th style="width: 40%; border: 1px solid var(--border-color); padding: 4px; text-align: right; font-size:12px;">بابەت</th>
+                            <th style="width: 15%; border: 1px solid var(--border-color); padding: 4px; font-size:12px;">بڕ</th>
+                            <th style="width: 20%; border: 1px solid var(--border-color); padding: 4px; font-size:12px;">نرخ</th>
+                            <th style="width: 25%; border: 1px solid var(--border-color); padding: 4px; font-size:12px;">کۆ</th>
+                        </tr>
+                    </thead>
+                    <tbody>${rows}</tbody>
+                </table>
+                ${noteHtml}
+                <div class="receipt-total" style="color:var(--text-color);">کۆی گشتی: ${rec.totalStr}</div>
+                ${tafqeetHtml}
+            </div>`;
+            
         document.getElementById('modalBtns').innerHTML = `<button class="btn btn-print" onclick="window.print();">🖨️ پرێنتکردن</button><button class="btn btn-download" onclick="downloadReceiptImage()">📥 مۆبایل</button><button class="btn btn-close" onclick="closeModal()">داخستن</button>`;
         document.getElementById('receiptModal').style.display = 'flex';
     }
 
     let currentDebtMode = 'customer'; let pendingExtendDateName = ''; 
 
-    // --- لۆژیکی قەرزەکان ---
     function switchDebtMode(mode) {
         currentDebtMode = mode;
         if(mode === 'customer') { 
@@ -937,7 +939,18 @@
         const debts = getDebts(); const data = debts[name]; if(!data) return;
         let dIQD = data.totalIQD !== undefined ? data.totalIQD : (data.total || 0); let dUSD = data.totalUSD || 0; let historyRows = '';
         const labelAdd = currentDebtMode === 'customer' ? 'قەرزی برد' : 'قەرزم کرد'; const labelPay = currentDebtMode === 'customer' ? 'پارەی هێنایەوە' : 'قەرزم دایەوە';
-        data.history.forEach(h => { const typeLabel = h.type === 'add' ? `<span style="color:red;">${labelAdd}</span>` : `<span style="color:green;">${labelPay}</span>`; const curLabel = h.currency === 'USD' ? '$' : 'دینار'; const noteText = h.note ? `<br><small style="color:#777;">تێبینی: ${h.note}</small>` : ''; historyRows += `<tr><td style="font-size:11px; direction:ltr;">${h.date}</td><td>${typeLabel}</td><td><span dir="ltr">${h.amount.toLocaleString()} ${curLabel}</span></td><td><b>${h.balance.toLocaleString()}</b>${noteText}</td></tr>`; });
+        
+        data.history.forEach(h => { 
+            const typeLabel = h.type === 'add' ? `<span style="color:red;">${labelAdd}</span>` : `<span style="color:green;">${labelPay}</span>`; 
+            const curLabel = h.currency === 'USD' ? '$' : 'دینار'; 
+            const noteText = h.note ? `<br><small style="color:#777; font-size:10px;">تێبینی: ${h.note}</small>` : ''; 
+            historyRows += `<tr>
+                <td style="font-size:11px; direction:ltr; padding:4px; border:1px solid var(--border-color);">${h.date}</td>
+                <td style="padding:4px; border:1px solid var(--border-color); font-size:12px;">${typeLabel}</td>
+                <td style="padding:4px; border:1px solid var(--border-color); font-size:12px;"><span dir="ltr">${h.amount.toLocaleString()} ${curLabel}</span></td>
+                <td style="padding:4px; border:1px solid var(--border-color); font-size:12px;"><b>${h.balance.toLocaleString()}</b>${noteText}</td>
+            </tr>`; 
+        });
         
         const quickActionsHtml = `<div data-html2canvas-ignore="true"><div class="quick-actions"><button class="btn-quick btn-quick-add" onclick="toggleQuickForm('add')">🔴 قەرزی نوێ</button><button class="btn-quick btn-quick-pay" onclick="toggleQuickForm('pay')">🟢 ${labelPay}</button></div><div id="quickFormArea" class="quick-form-area"><select id="quickCurrency"><option value="IQD">دینار</option><option value="USD">دۆلار</option></select><input type="text" id="quickAmount" class="format-num" inputmode="decimal" placeholder="بڕی پارە..."><input type="text" id="quickNote" placeholder="تێبینی..."><div id="quickDueDateContainer" style="display:none;"><input type="date" id="quickDueDate" style="width:100%; margin-bottom:10px; padding:10px; border-radius:6px; border:1px solid var(--border-color); background:var(--container-bg); color:var(--text-color);"></div><div style="display:flex; gap:10px;"><button class="btn btn-save" id="quickSubmitBtn" onclick="submitQuickDebt('${name}')">تۆمارکردن</button><button class="btn btn-clear" onclick="toggleQuickForm('close')">داخستن</button></div></div></div>`;
         let iqdHtml = dIQD > 0 ? `<div style="font-size:22px; color:var(--danger);">${dIQD.toLocaleString()} دینار</div>` : ''; let usdHtml = dUSD > 0 ? `<div style="font-size:22px; color:var(--accent); margin-top:10px;">${dUSD.toLocaleString()} دۆلار</div>` : ''; let zeroHtml = (dIQD === 0 && dUSD === 0) ? `<div style="font-size:22px; color:var(--success);">سفر بووەتەوە</div>` : '';
@@ -948,12 +961,22 @@
         let clientPhoneHtml = data.phone ? `<br>مۆبایل: <span dir="ltr">${data.phone}</span>` : '';
 
         document.getElementById('modalBody').innerHTML = `${quickActionsHtml}
-            <div id="captureArea" class="receipt-print" dir="rtl" style="color:var(--text-color); background:var(--container-bg);">
+            <div id="captureArea" class="receipt-print" dir="rtl">
                 <h2 style="text-align:center; margin: 0 0 5px 0; color:var(--text-color);">مارکێتی دەلین</h2>
                 <p style="text-align:center; margin: 0 0 15px 0; color:var(--text-color); line-height: 1.6;">خاوەنی: عمر علی<br>ناونیشان: چەمچەماڵ - بانی مەقان<br>${currentDebtMode === 'customer' ? 'کڕیار' : 'کۆمپانیا'}: <b>${name}</b> ${clientPhoneHtml}</p>
                 <div class="receipt-total" style="text-align:center; border:none; padding:10px; background:var(--input-bg); border-radius:8px; margin-bottom:15px; color:var(--text-color);">کۆی قەرزی ماوە:<br> ${iqdHtml} ${usdHtml} ${zeroHtml}</div>
                 ${tafqeetIqd}${tafqeetUsd}
-                <table style="margin-top:15px; width:100%; text-align:center; table-layout: auto;"><tr><th style="padding:4px;">بەروار</th><th style="padding:4px;">جۆر</th><th style="padding:4px;">بڕ</th><th style="padding:4px;">ماوە</th></tr>${historyRows}</table>
+                <table style="margin-top:15px; width:100%; text-align:center; border-collapse:collapse; table-layout:fixed;">
+                    <thead>
+                        <tr>
+                            <th style="width:28%; padding:4px; border:1px solid var(--border-color); font-size:12px;">بەروار</th>
+                            <th style="width:22%; padding:4px; border:1px solid var(--border-color); font-size:12px;">جۆر</th>
+                            <th style="width:25%; padding:4px; border:1px solid var(--border-color); font-size:12px;">بڕ</th>
+                            <th style="width:25%; padding:4px; border:1px solid var(--border-color); font-size:12px;">ماوە</th>
+                        </tr>
+                    </thead>
+                    <tbody>${historyRows}</tbody>
+                </table>
             </div>`;
             
         document.getElementById('modalBtns').innerHTML = `<button class="btn btn-print" onclick="window.print();">🖨️ پرێنتکردن</button><button class="btn btn-download" onclick="downloadReceiptImage()">📥 مۆبایل</button><button class="btn btn-close" onclick="closeModal()">داخستن</button>`;
@@ -995,9 +1018,32 @@
     }
     
     function closeModal() { const modal = document.getElementById('receiptModal'); if(modal) modal.style.display = 'none'; }
+    
     function downloadReceiptImage() {
         const target = document.getElementById('captureArea'); if(!target) return;
-        html2canvas(target, { scale: 2, useCORS: true, backgroundColor: "#ffffff" }).then(canvas => { const link = document.createElement('a'); link.download = 'Wene_Dalin.png'; link.href = canvas.toDataURL('image/png'); link.click(); }).catch(err => alert("نەتوانرا وێنەکە دابەزێنرێت. تکایە دڵنیابە لە خێرایی ئینتەرنێتەکەت."));
+        
+        // دانانی ئۆڤەرفلۆ بە تەواوی بۆ ئەوەی لە کاتی ڕەسمگرتندا شتەکان نەشارێتەوە
+        const originalStyle = target.style.cssText;
+        target.style.maxHeight = 'none';
+        target.style.overflow = 'visible';
+
+        html2canvas(target, { 
+            scale: 2, 
+            useCORS: true, 
+            backgroundColor: "#ffffff",
+            windowWidth: target.scrollWidth,
+            windowHeight: target.scrollHeight
+        }).then(canvas => { 
+            const link = document.createElement('a'); 
+            link.download = 'Wene_Dalin.png'; 
+            link.href = canvas.toDataURL('image/png'); 
+            link.click(); 
+            
+            target.style.cssText = originalStyle;
+        }).catch(err => {
+            alert("نەتوانرا وێنەکە دابەزێنرێت. تکایە دڵنیابە لە خێرایی ئینتەرنێتەکەت.");
+            target.style.cssText = originalStyle;
+        });
     }
 </script>
 </body>
