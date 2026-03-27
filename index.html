@@ -59,10 +59,6 @@
         .card-debts { background-image: linear-gradient(135deg, #43e97b 0%, #38f9d7 100%); }
         .card-backup { background-image: linear-gradient(135deg, #434343 0%, #000000 100%); }
 
-        @keyframes shake { 0%,100%{transform:translateX(0);} 25%{transform:translateX(-3px);} 75%{transform:translateX(3px);} }
-        .debt-overdue { animation: shake 0.6s infinite; border-left: 5px solid var(--danger) !important; border-right: 5px solid var(--danger) !important; background: rgba(231,76,60,0.08) !important; }
-        .debt-near { border-left: 5px solid var(--warning) !important; background: rgba(243,156,18,0.08) !important; }
-
         .header-wrapper { display: flex; align-items: center; justify-content: space-between; margin-bottom: 15px; position: relative; padding-bottom: 15px; border-bottom: 1px solid var(--border-color); flex-wrap: wrap; gap: 10px; }
         .main-header { flex-grow: 1; text-align: center; }
         .main-header h1 { color: var(--accent); margin: 0 0 5px 0; font-size: 26px; font-weight: 900; text-shadow: 1px 1px 2px rgba(0,0,0,0.1); }
@@ -70,8 +66,7 @@
         
         .live-clock-bar { display: flex; justify-content: center; align-items: center; gap: 15px; font-size: 13px; font-weight: bold; color: var(--text-color); margin-top: 10px; }
         #headerClock { background: var(--input-bg); padding: 4px 10px; border-radius: 15px; border: 1px solid var(--border-color); }
-        [data-theme="dark"] .live-clock-bar, [data-theme="dark"] .main-header h1 { text-shadow: 1px 1px 4px rgba(0,0,0,0.8); color: #ffffff !important; }
-
+        
         .header-controls-left { display: flex; flex-direction: row; align-items: center; gap: 8px; }
         @media (max-width: 768px) { .header-controls-left { position: relative; width: 100%; justify-content: center; margin-bottom: 10px; } }
 
@@ -94,20 +89,7 @@
         }
         input:focus { border-color: var(--accent); box-shadow: 0 0 0 3px rgba(0,122,255,0.2); background: var(--container-bg); }
         
-        input.row-total { 
-            background-color: transparent !important; 
-            font-weight: bold !important; 
-            color: var(--success) !important; 
-            pointer-events: none !important; 
-            border: none !important; 
-            box-shadow: none !important; 
-            padding: 0 !important; 
-            margin: 0 !important; 
-            font-size: 13px !important; 
-            text-align: center !important; 
-            width: 100% !important; 
-            min-width: 0 !important; 
-        }
+        input.row-total { background-color: transparent !important; font-weight: bold !important; color: var(--success) !important; pointer-events: none !important; border: none !important; box-shadow: none !important; padding: 0 !important; margin: 0 !important; font-size: 13px !important; text-align: center !important; width: 100% !important; min-width: 0 !important; }
         
         .note-input { position: relative; z-index: 1; width: 100%; padding: 12px; border: 1px solid var(--border-color); border-radius: 8px; font-size: 14px; margin-bottom: 15px; text-align: right; }
         
@@ -148,25 +130,75 @@
         
         .designer-name { text-align: center; margin-top: 30px; color: var(--text-color); font-size: 14px; font-weight: bold; border-top: 1px dashed var(--border-color); padding-top: 15px; opacity: 0.7; }
         
+        /* ------------------------------------------------------------- */
+        /* چارەسەری کۆتایی و بنەڕەتی بۆ وەسڵەکان کە هەرگیز دەرنەچن       */
+        /* ------------------------------------------------------------- */
         .modal { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.7); backdrop-filter: blur(5px); z-index: 10000; align-items: center; justify-content: center; padding: 10px; }
-        .modal-content { background: var(--container-bg); color: var(--text-color); width: 100%; max-width: 400px; border-radius: 16px; padding: 15px; max-height: 95vh; overflow-y: auto; overflow-x: hidden; position: relative; box-shadow: 0 15px 40px rgba(0,0,0,0.2); }
+        .modal-content { background: var(--container-bg); color: var(--text-color); width: 98%; max-width: 400px; border-radius: 16px; padding: 15px; max-height: 95vh; overflow-y: auto; overflow-x: hidden; position: relative; box-sizing: border-box; }
 
-        /* قیاسی وەسڵ بە جێگیری کە ناچێتە دەرەوە */
-        .receipt-print { 
-            background: var(--container-bg); 
+        #captureArea { 
+            background: #ffffff !important; 
+            color: #000000 !important; 
             padding: 15px !important; 
-            border: 2px dashed var(--border-color); 
-            border-radius: 8px; 
-            margin-bottom: 20px; 
-            width: 100%; 
-            box-sizing: border-box; 
-            color: var(--text-color); 
+            border: 2px dashed #666 !important; 
+            border-radius: 8px !important; 
+            width: 100% !important; 
+            max-width: 100% !important; 
+            box-sizing: border-box !important; 
+            margin: 0 auto 15px auto !important; 
+            overflow: hidden !important; 
         }
-        .receipt-print h2 { text-align: center; margin: 0 0 5px 0; color: var(--text-color); font-size: 20px; font-weight: bold; }
-        .receipt-print p { text-align: center; margin: 0 0 15px 0; color: var(--text-color); font-size: 13px; line-height: 1.4; }
-        .receipt-total { text-align: left; font-size: 16px; font-weight: bold; color: var(--text-color); padding-top: 10px; margin-top: 5px; border-top: 2px dashed var(--border-color); }
-        .tafqeet-text { text-align: center; font-size: 13px; font-weight: bold; color: var(--text-color); background: var(--input-bg); padding: 10px; border-radius: 6px; margin-top: 10px; border: 1px solid var(--border-color); width: 100%; box-sizing: border-box; }
-        .modal-btns { display: flex; gap: 10px; margin-top: 15px; }
+        #captureArea * { color: #000000 !important; }
+        
+        /* خشتەی ناو وەسڵ (بەراورد) */
+        .receipt-table { 
+            width: 100% !important; 
+            max-width: 100% !important; 
+            border-collapse: collapse !important; 
+            table-layout: fixed !important; 
+            margin-bottom: 15px !important; 
+        }
+        .receipt-table th, .receipt-table td { 
+            border: 1px solid #666 !important; 
+            padding: 5px 2px !important; 
+            font-size: 11px !important; 
+            text-align: center !important; 
+            word-wrap: break-word !important; 
+            overflow-wrap: break-word !important; 
+        }
+        /* قیاسەکان قفڵ کراون */
+        .receipt-table th:nth-child(1), .receipt-table td:nth-child(1) { width: 40% !important; text-align: right !important; padding-right: 5px !important; }
+        .receipt-table th:nth-child(2), .receipt-table td:nth-child(2) { width: 12% !important; }
+        .receipt-table th:nth-child(3), .receipt-table td:nth-child(3) { width: 23% !important; }
+        .receipt-table th:nth-child(4), .receipt-table td:nth-child(4) { width: 25% !important; }
+
+        /* خشتەی ناو وەسڵ (قەرزەکان) */
+        .receipt-table-debt { 
+            width: 100% !important; 
+            max-width: 100% !important; 
+            border-collapse: collapse !important; 
+            table-layout: fixed !important; 
+            margin-top: 15px !important; 
+        }
+        .receipt-table-debt th, .receipt-table-debt td { 
+            border: 1px solid #666 !important; 
+            padding: 4px 1px !important; 
+            font-size: 11px !important; 
+            text-align: center !important; 
+            word-wrap: break-word !important; 
+            overflow-wrap: break-word !important; 
+        }
+        /* قیاسەکان قفڵ کراون */
+        .receipt-table-debt th:nth-child(1), .receipt-table-debt td:nth-child(1) { width: 30% !important; font-size: 10px !important; direction: ltr !important; }
+        .receipt-table-debt th:nth-child(2), .receipt-table-debt td:nth-child(2) { width: 18% !important; }
+        .receipt-table-debt th:nth-child(3), .receipt-table-debt td:nth-child(3) { width: 26% !important; }
+        .receipt-table-debt th:nth-child(4), .receipt-table-debt td:nth-child(4) { width: 26% !important; }
+
+        .receipt-total { text-align: left !important; font-size: 15px !important; font-weight: bold !important; padding-top: 10px !important; border-top: 2px dashed #666 !important; }
+        .tafqeet-text { text-align: center !important; font-size: 12px !important; font-weight: bold !important; background: #f8f9fa !important; padding: 8px !important; border-radius: 6px !important; margin-top: 10px !important; border: 1px solid #ccc !important; width: 100% !important; box-sizing: border-box !important; }
+        
+        .modal-btns { display: flex; gap: 10px; margin-top: 10px; }
+        /* ------------------------------------------------------------- */
         
         .debt-form { background: var(--input-bg); padding: 15px; border-radius: 12px; border: 1px solid var(--border-color); margin-bottom: 20px; color: var(--text-color); box-shadow: 0 4px 10px rgba(0,0,0,0.02); }
         .debt-input-group { margin-bottom: 12px; position: relative; }
@@ -213,7 +245,6 @@
         .data-table th { background: var(--primary); color: white; padding: 12px 5px; font-weight: bold; border: 1px solid var(--border-color); }
         .data-table td { padding: 10px 5px; border: 1px solid var(--border-color); color: var(--text-color); vertical-align: middle; }
         .data-table tr:nth-child(even) { background-color: var(--input-bg); }
-
     </style>
 </head>
 <body>
@@ -689,37 +720,31 @@
         window.pendingCompareReceipt = { date: new Date().toLocaleDateString('en-GB') + " | " + new Date().toLocaleTimeString('en-US', {hour:'2-digit', minute:'2-digit'}), totalStr: grandTotal + " " + currencyName, tafqeet: numberToKurdishWords(numValue) + " " + currencyName, items: items, note: document.getElementById('receiptNote').value.trim() };
         let rows = '';
         
-        // خشتەی ناوەوەی وەسڵ ڕێژەکەی فیکس کراوە تا نەچێتە دەرەوە
         window.pendingCompareReceipt.items.forEach(it => { 
             rows += `<tr>
-                <td style="border: 1px solid var(--border-color); padding: 4px; word-break: break-word; white-space: normal; text-align: right; font-size:12px;">${it.name}</td>
-                <td style="border: 1px solid var(--border-color); padding: 4px; text-align: center; font-size:12px;">${it.qty}</td>
-                <td style="border: 1px solid var(--border-color); padding: 4px; text-align: center; font-size:12px;">${it.price}</td>
-                <td style="border: 1px solid var(--border-color); padding: 4px; text-align: center; font-size:12px;">${it.total}</td>
+                <td>${it.name}</td>
+                <td>${it.qty}</td>
+                <td>${it.price}</td>
+                <td>${it.total}</td>
             </tr>`; 
         });
         
-        const noteHtml = window.pendingCompareReceipt.note ? `<div style="text-align:right; margin-bottom:10px; font-size:14px; border-top:1px dashed var(--border-color); padding-top:5px; color:var(--text-color);"><b>تێبینی:</b> ${window.pendingCompareReceipt.note}</div>` : '';
+        const noteHtml = window.pendingCompareReceipt.note ? `<div style="text-align:right; margin-bottom:10px; font-size:14px; border-top:1px dashed #777; padding-top:5px; color:#000;"><b>تێبینی:</b> ${window.pendingCompareReceipt.note}</div>` : '';
         const tafqeetHtml = window.pendingCompareReceipt.tafqeet ? `<div class="tafqeet-text">تەنها: ${window.pendingCompareReceipt.tafqeet}</div>` : '';
         
         document.getElementById('modalBody').innerHTML = `
-            <div id="captureArea" class="receipt-print" dir="rtl">
-                <h3 style="text-align:center; color:var(--danger); margin-top:0; border-bottom:2px dashed var(--danger); padding-bottom:10px;">⚠️ پێداچوونەوەی وەسڵ ⚠️</h3>
-                <h2 style="text-align:center; margin: 0 0 5px 0; color:var(--text-color);">مارکێتی دەلین</h2>
-                <p style="text-align:center; margin: 0 0 15px 0; color:var(--text-color); line-height: 1.6;">خاوەنی: عمر علی<br>ناونیشان: چەمچەماڵ - بانی مەقان<br><span style="direction:ltr; display:inline-block; margin-top:5px;">${window.pendingCompareReceipt.date}</span></p>
-                <table style="width: 100%; border-collapse: collapse; margin-bottom: 15px; table-layout: fixed;">
+            <div id="captureArea" dir="rtl">
+                <h3 style="text-align:center; color:#e74c3c !important; margin-top:0; border-bottom:2px dashed #e74c3c !important; padding-bottom:10px;">⚠️ پێداچوونەوەی وەسڵ ⚠️</h3>
+                <h2 style="text-align:center; margin: 0 0 5px 0; color:#000 !important;">مارکێتی دەلین</h2>
+                <p style="text-align:center; margin: 0 0 15px 0; color:#000 !important; line-height: 1.6; font-size:12px;">خاوەنی: عمر علی<br>ناونیشان: چەمچەماڵ - بانی مەقان<br><span style="direction:ltr; display:inline-block; margin-top:5px;">${window.pendingCompareReceipt.date}</span></p>
+                <table class="receipt-table">
                     <thead>
-                        <tr>
-                            <th style="width: 40%; border: 1px solid var(--border-color); padding: 4px; text-align: right; font-size:12px;">بابەت</th>
-                            <th style="width: 15%; border: 1px solid var(--border-color); padding: 4px; font-size:12px;">بڕ</th>
-                            <th style="width: 20%; border: 1px solid var(--border-color); padding: 4px; font-size:12px;">نرخ</th>
-                            <th style="width: 25%; border: 1px solid var(--border-color); padding: 4px; font-size:12px;">کۆ</th>
-                        </tr>
+                        <tr><th>بابەت</th><th>بڕ</th><th>نرخ</th><th>کۆ</th></tr>
                     </thead>
                     <tbody>${rows}</tbody>
                 </table>
                 ${noteHtml}
-                <div class="receipt-total" style="color:var(--text-color);">کۆی گشتی: ${window.pendingCompareReceipt.totalStr}</div>
+                <div class="receipt-total">کۆی گشتی: ${window.pendingCompareReceipt.totalStr}</div>
                 ${tafqeetHtml}
             </div>`;
             
@@ -748,34 +773,22 @@
         const rec = (JSON.parse(localStorage.getItem('khalkhalanFull')) || [])[index]; if(!rec) return;
         let rows = '';
         rec.items.forEach(it => { 
-            rows += `<tr>
-                <td style="border: 1px solid var(--border-color); padding: 4px; word-break: break-word; white-space: normal; text-align: right; font-size:12px;">${it.name}</td>
-                <td style="border: 1px solid var(--border-color); padding: 4px; text-align: center; font-size:12px;">${it.qty}</td>
-                <td style="border: 1px solid var(--border-color); padding: 4px; text-align: center; font-size:12px;">${it.price}</td>
-                <td style="border: 1px solid var(--border-color); padding: 4px; text-align: center; font-size:12px;">${it.total}</td>
-            </tr>`; 
+            rows += `<tr><td>${it.name}</td><td>${it.qty}</td><td>${it.price}</td><td>${it.total}</td></tr>`; 
         });
         
-        const noteHtml = rec.note ? `<div style="text-align:right; margin-bottom:10px; font-size:14px; border-top:1px dashed var(--border-color); padding-top:5px; color:var(--text-color);"><b>تێبینی:</b> ${rec.note}</div>` : '';
+        const noteHtml = rec.note ? `<div style="text-align:right; margin-bottom:10px; font-size:14px; border-top:1px dashed #777; padding-top:5px; color:#000;"><b>تێبینی:</b> ${rec.note}</div>` : '';
         const tafqeetHtml = rec.tafqeet ? `<div class="tafqeet-text">تەنها: ${rec.tafqeet}</div>` : '';
         
         document.getElementById('modalBody').innerHTML = `
-            <div id="captureArea" class="receipt-print" dir="rtl">
-                <h2 style="text-align:center; margin: 0 0 5px 0; color:var(--text-color);">مارکێتی دەلین</h2>
-                <p style="text-align:center; margin: 0 0 15px 0; color:var(--text-color); line-height: 1.6;">خاوەنی: عمر علی<br>ناونیشان: چەمچەماڵ - بانی مەقان<br><span style="direction:ltr; display:inline-block; margin-top:5px;">${rec.date}</span></p>
-                <table style="width: 100%; border-collapse: collapse; margin-bottom: 15px; table-layout: fixed;">
-                    <thead>
-                        <tr>
-                            <th style="width: 40%; border: 1px solid var(--border-color); padding: 4px; text-align: right; font-size:12px;">بابەت</th>
-                            <th style="width: 15%; border: 1px solid var(--border-color); padding: 4px; font-size:12px;">بڕ</th>
-                            <th style="width: 20%; border: 1px solid var(--border-color); padding: 4px; font-size:12px;">نرخ</th>
-                            <th style="width: 25%; border: 1px solid var(--border-color); padding: 4px; font-size:12px;">کۆ</th>
-                        </tr>
-                    </thead>
+            <div id="captureArea" dir="rtl">
+                <h2 style="text-align:center; margin: 0 0 5px 0; color:#000 !important;">مارکێتی دەلین</h2>
+                <p style="text-align:center; margin: 0 0 15px 0; color:#000 !important; line-height: 1.6; font-size:12px;">خاوەنی: عمر علی<br>ناونیشان: چەمچەماڵ - بانی مەقان<br><span style="direction:ltr; display:inline-block; margin-top:5px;">${rec.date}</span></p>
+                <table class="receipt-table">
+                    <thead><tr><th>بابەت</th><th>بڕ</th><th>نرخ</th><th>کۆ</th></tr></thead>
                     <tbody>${rows}</tbody>
                 </table>
                 ${noteHtml}
-                <div class="receipt-total" style="color:var(--text-color);">کۆی گشتی: ${rec.totalStr}</div>
+                <div class="receipt-total">کۆی گشتی: ${rec.totalStr}</div>
                 ${tafqeetHtml}
             </div>`;
             
@@ -945,10 +958,10 @@
             const curLabel = h.currency === 'USD' ? '$' : 'دینار'; 
             const noteText = h.note ? `<br><small style="color:#777; font-size:10px;">تێبینی: ${h.note}</small>` : ''; 
             historyRows += `<tr>
-                <td style="font-size:11px; direction:ltr; padding:4px; border:1px solid var(--border-color);">${h.date}</td>
-                <td style="padding:4px; border:1px solid var(--border-color); font-size:12px;">${typeLabel}</td>
-                <td style="padding:4px; border:1px solid var(--border-color); font-size:12px;"><span dir="ltr">${h.amount.toLocaleString()} ${curLabel}</span></td>
-                <td style="padding:4px; border:1px solid var(--border-color); font-size:12px;"><b>${h.balance.toLocaleString()}</b>${noteText}</td>
+                <td>${h.date}</td>
+                <td>${typeLabel}</td>
+                <td><span dir="ltr">${h.amount.toLocaleString()} ${curLabel}</span></td>
+                <td><b>${h.balance.toLocaleString()}</b>${noteText}</td>
             </tr>`; 
         });
         
@@ -961,20 +974,13 @@
         let clientPhoneHtml = data.phone ? `<br>مۆبایل: <span dir="ltr">${data.phone}</span>` : '';
 
         document.getElementById('modalBody').innerHTML = `${quickActionsHtml}
-            <div id="captureArea" class="receipt-print" dir="rtl">
-                <h2 style="text-align:center; margin: 0 0 5px 0; color:var(--text-color);">مارکێتی دەلین</h2>
-                <p style="text-align:center; margin: 0 0 15px 0; color:var(--text-color); line-height: 1.6;">خاوەنی: عمر علی<br>ناونیشان: چەمچەماڵ - بانی مەقان<br>${currentDebtMode === 'customer' ? 'کڕیار' : 'کۆمپانیا'}: <b>${name}</b> ${clientPhoneHtml}</p>
-                <div class="receipt-total" style="text-align:center; border:none; padding:10px; background:var(--input-bg); border-radius:8px; margin-bottom:15px; color:var(--text-color);">کۆی قەرزی ماوە:<br> ${iqdHtml} ${usdHtml} ${zeroHtml}</div>
+            <div id="captureArea" dir="rtl">
+                <h2 style="text-align:center; margin: 0 0 5px 0; color:#000 !important;">مارکێتی دەلین</h2>
+                <p style="text-align:center; margin: 0 0 15px 0; color:#000 !important; line-height: 1.6; font-size:12px;">خاوەنی: عمر علی<br>ناونیشان: چەمچەماڵ - بانی مەقان<br>${currentDebtMode === 'customer' ? 'کڕیار' : 'کۆمپانیا'}: <b>${name}</b> ${clientPhoneHtml}</p>
+                <div class="receipt-total" style="text-align:center; border:none; padding:10px; background:#f9f9f9 !important; border-radius:8px; margin-bottom:15px; color:#000 !important;">کۆی قەرزی ماوە:<br> ${iqdHtml} ${usdHtml} ${zeroHtml}</div>
                 ${tafqeetIqd}${tafqeetUsd}
-                <table style="margin-top:15px; width:100%; text-align:center; border-collapse:collapse; table-layout:fixed;">
-                    <thead>
-                        <tr>
-                            <th style="width:28%; padding:4px; border:1px solid var(--border-color); font-size:12px;">بەروار</th>
-                            <th style="width:22%; padding:4px; border:1px solid var(--border-color); font-size:12px;">جۆر</th>
-                            <th style="width:25%; padding:4px; border:1px solid var(--border-color); font-size:12px;">بڕ</th>
-                            <th style="width:25%; padding:4px; border:1px solid var(--border-color); font-size:12px;">ماوە</th>
-                        </tr>
-                    </thead>
+                <table class="receipt-table-debt">
+                    <thead><tr><th>بەروار</th><th>جۆر</th><th>بڕ</th><th>ماوە</th></tr></thead>
                     <tbody>${historyRows}</tbody>
                 </table>
             </div>`;
@@ -1022,17 +1028,17 @@
     function downloadReceiptImage() {
         const target = document.getElementById('captureArea'); if(!target) return;
         
-        // دانانی ئۆڤەرفلۆ بە تەواوی بۆ ئەوەی لە کاتی ڕەسمگرتندا شتەکان نەشارێتەوە
         const originalStyle = target.style.cssText;
         target.style.maxHeight = 'none';
         target.style.overflow = 'visible';
+        target.style.width = '380px'; /* ئەمە وەسڵەکە زۆر بە جوانی و ڕێکی دەردەهێنێت بێ ئەوەی بیبڕێت */
+        target.style.maxWidth = 'none';
 
         html2canvas(target, { 
-            scale: 2, 
+            scale: 3, 
             useCORS: true, 
             backgroundColor: "#ffffff",
-            windowWidth: target.scrollWidth,
-            windowHeight: target.scrollHeight
+            windowWidth: 400
         }).then(canvas => { 
             const link = document.createElement('a'); 
             link.download = 'Wene_Dalin.png'; 
