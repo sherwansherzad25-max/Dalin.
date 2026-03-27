@@ -59,6 +59,10 @@
         .card-debts { background-image: linear-gradient(135deg, #43e97b 0%, #38f9d7 100%); }
         .card-backup { background-image: linear-gradient(135deg, #434343 0%, #000000 100%); }
 
+        @keyframes shake { 0%,100%{transform:translateX(0);} 25%{transform:translateX(-3px);} 75%{transform:translateX(3px);} }
+        .debt-overdue { animation: shake 0.6s infinite; border-left: 5px solid var(--danger) !important; border-right: 5px solid var(--danger) !important; background: rgba(231,76,60,0.08) !important; }
+        .debt-near { border-left: 5px solid var(--warning) !important; background: rgba(243,156,18,0.08) !important; }
+
         .header-wrapper { display: flex; align-items: center; justify-content: space-between; margin-bottom: 15px; position: relative; padding-bottom: 15px; border-bottom: 1px solid var(--border-color); flex-wrap: wrap; gap: 10px; }
         .main-header { flex-grow: 1; text-align: center; }
         .main-header h1 { color: var(--accent); margin: 0 0 5px 0; font-size: 26px; font-weight: 900; text-shadow: 1px 1px 2px rgba(0,0,0,0.1); }
@@ -66,7 +70,8 @@
         
         .live-clock-bar { display: flex; justify-content: center; align-items: center; gap: 15px; font-size: 13px; font-weight: bold; color: var(--text-color); margin-top: 10px; }
         #headerClock { background: var(--input-bg); padding: 4px 10px; border-radius: 15px; border: 1px solid var(--border-color); }
-        
+        [data-theme="dark"] .live-clock-bar, [data-theme="dark"] .main-header h1 { text-shadow: 1px 1px 4px rgba(0,0,0,0.8); color: #ffffff !important; }
+
         .header-controls-left { display: flex; flex-direction: row; align-items: center; gap: 8px; }
         @media (max-width: 768px) { .header-controls-left { position: relative; width: 100%; justify-content: center; margin-bottom: 10px; } }
 
@@ -85,7 +90,7 @@
         .row-num-cell { font-weight: bold; color: var(--accent); font-size: 13px; width: 5%; }
         
         input[type="text"], input[type="number"], input[type="date"], input[type="tel"] { 
-            width: 100%; padding: 12px 6px; border: 1px solid var(--border-color); border-radius: 8px; font-size: 13px; text-align: center; outline: none; background: var(--input-bg); color: var(--text-color); -webkit-appearance: none; 
+            width: 100%; padding: 12px 6px; border: 1px solid var(--border-color); border-radius: 8px; font-size: 13px; text-align: center; outline: none; background: var(--input-bg); color: var(--text-color); -webkit-appearance: none; box-sizing: border-box;
         }
         input:focus { border-color: var(--accent); box-shadow: 0 0 0 3px rgba(0,122,255,0.2); background: var(--container-bg); }
         
@@ -133,69 +138,67 @@
         /* ------------------------------------------------------------- */
         /* چارەسەری کۆتایی و بنەڕەتی بۆ وەسڵەکان کە هەرگیز دەرنەچن       */
         /* ------------------------------------------------------------- */
-        .modal { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.7); backdrop-filter: blur(5px); z-index: 10000; align-items: center; justify-content: center; padding: 10px; }
-        .modal-content { background: var(--container-bg); color: var(--text-color); width: 98%; max-width: 400px; border-radius: 16px; padding: 15px; max-height: 95vh; overflow-y: auto; overflow-x: hidden; position: relative; box-sizing: border-box; }
+        .modal { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.7); backdrop-filter: blur(5px); z-index: 10000; align-items: center; justify-content: center; padding: 10px; box-sizing: border-box; }
+        
+        .modal-content { 
+            background: var(--container-bg); 
+            color: var(--text-color); 
+            width: 95%; /* کەمێک بۆشایی بۆ شاشە بچووکەکان */
+            max-width: 400px; 
+            border-radius: 16px; 
+            padding: 10px; 
+            max-height: 95vh; 
+            overflow-y: auto; 
+            overflow-x: hidden; /* ڕێگری لە سکڕۆڵی لایەکی */
+            position: relative; 
+            box-sizing: border-box; 
+        }
 
         #captureArea { 
             background: #ffffff !important; 
             color: #000000 !important; 
-            padding: 15px !important; 
+            padding: 10px !important; 
             border: 2px dashed #666 !important; 
             border-radius: 8px !important; 
             width: 100% !important; 
             max-width: 100% !important; 
             box-sizing: border-box !important; 
-            margin: 0 auto 15px auto !important; 
-            overflow: hidden !important; 
+            margin: 0 auto 10px auto !important; 
         }
-        #captureArea * { color: #000000 !important; }
+        #captureArea * { color: #000000 !important; box-sizing: border-box !important; }
         
-        /* خشتەی ناو وەسڵ (بەراورد) */
-        .receipt-table { 
+        /* خشتەی ناو وەسڵ گشتی */
+        .receipt-table, .receipt-table-debt { 
             width: 100% !important; 
             max-width: 100% !important; 
             border-collapse: collapse !important; 
-            table-layout: fixed !important; 
+            table-layout: fixed !important; /* ئەمە ڕێگە نادات خشتەکە کش بێت */
             margin-bottom: 15px !important; 
         }
-        .receipt-table th, .receipt-table td { 
-            border: 1px solid #666 !important; 
-            padding: 5px 2px !important; 
-            font-size: 11px !important; 
-            text-align: center !important; 
-            word-wrap: break-word !important; 
-            overflow-wrap: break-word !important; 
-        }
-        /* قیاسەکان قفڵ کراون */
-        .receipt-table th:nth-child(1), .receipt-table td:nth-child(1) { width: 40% !important; text-align: right !important; padding-right: 5px !important; }
-        .receipt-table th:nth-child(2), .receipt-table td:nth-child(2) { width: 12% !important; }
-        .receipt-table th:nth-child(3), .receipt-table td:nth-child(3) { width: 23% !important; }
-        .receipt-table th:nth-child(4), .receipt-table td:nth-child(4) { width: 25% !important; }
-
-        /* خشتەی ناو وەسڵ (قەرزەکان) */
-        .receipt-table-debt { 
-            width: 100% !important; 
-            max-width: 100% !important; 
-            border-collapse: collapse !important; 
-            table-layout: fixed !important; 
-            margin-top: 15px !important; 
-        }
+        .receipt-table th, .receipt-table td, 
         .receipt-table-debt th, .receipt-table-debt td { 
             border: 1px solid #666 !important; 
-            padding: 4px 1px !important; 
-            font-size: 11px !important; 
+            padding: 4px 2px !important; 
+            font-size: 11px !important; /* بچووککرایەوە بۆ ئەوەی ڕەقەمەکان جێگەیان ببێتەوە */
             text-align: center !important; 
-            word-wrap: break-word !important; 
-            overflow-wrap: break-word !important; 
+            word-break: break-all !important; /* گرنگترین دێڕ: ژمارەکان دەشکێنێتەوە خوارەوە */
+            white-space: normal !important; 
         }
-        /* قیاسەکان قفڵ کراون */
-        .receipt-table-debt th:nth-child(1), .receipt-table-debt td:nth-child(1) { width: 30% !important; font-size: 10px !important; direction: ltr !important; }
-        .receipt-table-debt th:nth-child(2), .receipt-table-debt td:nth-child(2) { width: 18% !important; }
-        .receipt-table-debt th:nth-child(3), .receipt-table-debt td:nth-child(3) { width: 26% !important; }
-        .receipt-table-debt th:nth-child(4), .receipt-table-debt td:nth-child(4) { width: 26% !important; }
+        
+        /* قیاسی خانەکانی وەسڵی بەراورد */
+        .receipt-table th:nth-child(1), .receipt-table td:nth-child(1) { width: 40% !important; text-align: right !important; padding-right: 4px !important; }
+        .receipt-table th:nth-child(2), .receipt-table td:nth-child(2) { width: 15% !important; }
+        .receipt-table th:nth-child(3), .receipt-table td:nth-child(3) { width: 20% !important; }
+        .receipt-table th:nth-child(4), .receipt-table td:nth-child(4) { width: 25% !important; }
+
+        /* قیاسی خانەکانی وەسڵی قەرزەکان */
+        .receipt-table-debt th:nth-child(1), .receipt-table-debt td:nth-child(1) { width: 28% !important; font-size: 10px !important; direction: ltr !important; }
+        .receipt-table-debt th:nth-child(2), .receipt-table-debt td:nth-child(2) { width: 22% !important; }
+        .receipt-table-debt th:nth-child(3), .receipt-table-debt td:nth-child(3) { width: 25% !important; }
+        .receipt-table-debt th:nth-child(4), .receipt-table-debt td:nth-child(4) { width: 25% !important; }
 
         .receipt-total { text-align: left !important; font-size: 15px !important; font-weight: bold !important; padding-top: 10px !important; border-top: 2px dashed #666 !important; }
-        .tafqeet-text { text-align: center !important; font-size: 12px !important; font-weight: bold !important; background: #f8f9fa !important; padding: 8px !important; border-radius: 6px !important; margin-top: 10px !important; border: 1px solid #ccc !important; width: 100% !important; box-sizing: border-box !important; }
+        .tafqeet-text { text-align: center !important; font-size: 12px !important; font-weight: bold !important; background: #f8f9fa !important; padding: 8px !important; border-radius: 6px !important; margin-top: 10px !important; border: 1px solid #ccc !important; width: 100% !important; }
         
         .modal-btns { display: flex; gap: 10px; margin-top: 10px; }
         /* ------------------------------------------------------------- */
@@ -245,6 +248,7 @@
         .data-table th { background: var(--primary); color: white; padding: 12px 5px; font-weight: bold; border: 1px solid var(--border-color); }
         .data-table td { padding: 10px 5px; border: 1px solid var(--border-color); color: var(--text-color); vertical-align: middle; }
         .data-table tr:nth-child(even) { background-color: var(--input-bg); }
+
     </style>
 </head>
 <body>
@@ -296,7 +300,7 @@
         </div>
 
         <div class="table-responsive">
-            <table id="invoiceTable">
+            <table id="invoiceTable" style="table-layout: auto;">
                 <thead>
                     <tr>
                         <th style="width: 5%;">#</th>
@@ -729,18 +733,16 @@
             </tr>`; 
         });
         
-        const noteHtml = window.pendingCompareReceipt.note ? `<div style="text-align:right; margin-bottom:10px; font-size:14px; border-top:1px dashed #777; padding-top:5px; color:#000;"><b>تێبینی:</b> ${window.pendingCompareReceipt.note}</div>` : '';
+        const noteHtml = window.pendingCompareReceipt.note ? `<div style="text-align:right; margin-bottom:10px; font-size:14px; border-top:1px dashed #777; padding-top:5px;"><b>تێبینی:</b> ${window.pendingCompareReceipt.note}</div>` : '';
         const tafqeetHtml = window.pendingCompareReceipt.tafqeet ? `<div class="tafqeet-text">تەنها: ${window.pendingCompareReceipt.tafqeet}</div>` : '';
         
         document.getElementById('modalBody').innerHTML = `
             <div id="captureArea" dir="rtl">
                 <h3 style="text-align:center; color:#e74c3c !important; margin-top:0; border-bottom:2px dashed #e74c3c !important; padding-bottom:10px;">⚠️ پێداچوونەوەی وەسڵ ⚠️</h3>
-                <h2 style="text-align:center; margin: 0 0 5px 0; color:#000 !important;">مارکێتی دەلین</h2>
-                <p style="text-align:center; margin: 0 0 15px 0; color:#000 !important; line-height: 1.6; font-size:12px;">خاوەنی: عمر علی<br>ناونیشان: چەمچەماڵ - بانی مەقان<br><span style="direction:ltr; display:inline-block; margin-top:5px;">${window.pendingCompareReceipt.date}</span></p>
+                <h2 style="text-align:center; margin: 0 0 5px 0;">مارکێتی دەلین</h2>
+                <p style="text-align:center; margin: 0 0 15px 0; line-height: 1.6; font-size:12px;">خاوەنی: عمر علی<br>ناونیشان: چەمچەماڵ - بانی مەقان<br><span style="direction:ltr; display:inline-block; margin-top:5px;">${window.pendingCompareReceipt.date}</span></p>
                 <table class="receipt-table">
-                    <thead>
-                        <tr><th>بابەت</th><th>بڕ</th><th>نرخ</th><th>کۆ</th></tr>
-                    </thead>
+                    <thead><tr><th>بابەت</th><th>بڕ</th><th>نرخ</th><th>کۆ</th></tr></thead>
                     <tbody>${rows}</tbody>
                 </table>
                 ${noteHtml}
@@ -776,13 +778,13 @@
             rows += `<tr><td>${it.name}</td><td>${it.qty}</td><td>${it.price}</td><td>${it.total}</td></tr>`; 
         });
         
-        const noteHtml = rec.note ? `<div style="text-align:right; margin-bottom:10px; font-size:14px; border-top:1px dashed #777; padding-top:5px; color:#000;"><b>تێبینی:</b> ${rec.note}</div>` : '';
+        const noteHtml = rec.note ? `<div style="text-align:right; margin-bottom:10px; font-size:14px; border-top:1px dashed #777; padding-top:5px;"><b>تێبینی:</b> ${rec.note}</div>` : '';
         const tafqeetHtml = rec.tafqeet ? `<div class="tafqeet-text">تەنها: ${rec.tafqeet}</div>` : '';
         
         document.getElementById('modalBody').innerHTML = `
             <div id="captureArea" dir="rtl">
-                <h2 style="text-align:center; margin: 0 0 5px 0; color:#000 !important;">مارکێتی دەلین</h2>
-                <p style="text-align:center; margin: 0 0 15px 0; color:#000 !important; line-height: 1.6; font-size:12px;">خاوەنی: عمر علی<br>ناونیشان: چەمچەماڵ - بانی مەقان<br><span style="direction:ltr; display:inline-block; margin-top:5px;">${rec.date}</span></p>
+                <h2 style="text-align:center; margin: 0 0 5px 0;">مارکێتی دەلین</h2>
+                <p style="text-align:center; margin: 0 0 15px 0; line-height: 1.6; font-size:12px;">خاوەنی: عمر علی<br>ناونیشان: چەمچەماڵ - بانی مەقان<br><span style="direction:ltr; display:inline-block; margin-top:5px;">${rec.date}</span></p>
                 <table class="receipt-table">
                     <thead><tr><th>بابەت</th><th>بڕ</th><th>نرخ</th><th>کۆ</th></tr></thead>
                     <tbody>${rows}</tbody>
@@ -975,8 +977,8 @@
 
         document.getElementById('modalBody').innerHTML = `${quickActionsHtml}
             <div id="captureArea" dir="rtl">
-                <h2 style="text-align:center; margin: 0 0 5px 0; color:#000 !important;">مارکێتی دەلین</h2>
-                <p style="text-align:center; margin: 0 0 15px 0; color:#000 !important; line-height: 1.6; font-size:12px;">خاوەنی: عمر علی<br>ناونیشان: چەمچەماڵ - بانی مەقان<br>${currentDebtMode === 'customer' ? 'کڕیار' : 'کۆمپانیا'}: <b>${name}</b> ${clientPhoneHtml}</p>
+                <h2 style="text-align:center; margin: 0 0 5px 0;">مارکێتی دەلین</h2>
+                <p style="text-align:center; margin: 0 0 15px 0; line-height: 1.6; font-size:12px;">خاوەنی: عمر علی<br>ناونیشان: چەمچەماڵ - بانی مەقان<br>${currentDebtMode === 'customer' ? 'کڕیار' : 'کۆمپانیا'}: <b>${name}</b> ${clientPhoneHtml}</p>
                 <div class="receipt-total" style="text-align:center; border:none; padding:10px; background:#f9f9f9 !important; border-radius:8px; margin-bottom:15px; color:#000 !important;">کۆی قەرزی ماوە:<br> ${iqdHtml} ${usdHtml} ${zeroHtml}</div>
                 ${tafqeetIqd}${tafqeetUsd}
                 <table class="receipt-table-debt">
@@ -1031,14 +1033,11 @@
         const originalStyle = target.style.cssText;
         target.style.maxHeight = 'none';
         target.style.overflow = 'visible';
-        target.style.width = '380px'; /* ئەمە وەسڵەکە زۆر بە جوانی و ڕێکی دەردەهێنێت بێ ئەوەی بیبڕێت */
-        target.style.maxWidth = 'none';
 
         html2canvas(target, { 
-            scale: 3, 
+            scale: 2, 
             useCORS: true, 
-            backgroundColor: "#ffffff",
-            windowWidth: 400
+            backgroundColor: "#ffffff"
         }).then(canvas => { 
             const link = document.createElement('a'); 
             link.download = 'Wene_Dalin.png'; 
@@ -1047,7 +1046,7 @@
             
             target.style.cssText = originalStyle;
         }).catch(err => {
-            alert("نەتوانرا وێنەکە دابەزێنرێت. تکایە دڵنیابە لە خێرایی ئینتەرنێتەکەت.");
+            alert("نەتوانرا وێنەکە دابەزێنرێت.");
             target.style.cssText = originalStyle;
         });
     }
